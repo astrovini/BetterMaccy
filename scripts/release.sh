@@ -27,11 +27,29 @@ xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
   CODE_SIGN_STYLE=Manual \
   DEVELOPMENT_TEAM="$TEAM_ID" \
   CODE_SIGN_IDENTITY="$IDENTITY" \
+  CODE_SIGN_INJECT_BASE_ENTITLEMENTS=NO \
   OTHER_CODE_SIGN_FLAGS="--timestamp" \
   build
 
 APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name Maccy.app | head -1)
 cp -R "$APP" "$OUT/"
+
+# Xcode does not re-sign the executables nested inside the prebuilt Sparkle
+# framework, and the notary service rejects their original signatures.
+# Re-sign them inside-out, then the framework, then the app (whose seal the
+# nested re-signing invalidates).
+echo "==> Re-signing Sparkle nested binaries"
+SPARKLE="$OUT/Maccy.app/Contents/Frameworks/Sparkle.framework"
+resign() {
+  codesign --force --options runtime --timestamp --preserve-metadata=entitlements \
+    --sign "$IDENTITY" "$1"
+}
+resign "$SPARKLE/Versions/B/XPCServices/Downloader.xpc"
+resign "$SPARKLE/Versions/B/XPCServices/Installer.xpc"
+resign "$SPARKLE/Versions/B/Autoupdate"
+resign "$SPARKLE/Versions/B/Updater.app"
+resign "$SPARKLE"
+resign "$OUT/Maccy.app"
 
 echo "==> Verifying signature"
 codesign --verify --deep --strict "$OUT/Maccy.app"

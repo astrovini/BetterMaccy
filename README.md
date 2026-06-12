@@ -11,6 +11,13 @@ and lets you quickly navigate, search, and use previous clipboard contents.
 
 Maccy works on macOS Sonoma 14 or higher.
 
+> This is a personal fork of [Maccy](https://github.com/p0deje/Maccy) with multi-select paste enabled:
+> select multiple history items and paste them all at once as a single block joined by newlines.
+>
+> - **Shift+click** an item to add it to the selection
+> - **Shift+↑/↓** to extend the selection via keyboard
+> - Press **Enter** to paste all selected items joined by `\n`
+
 <!-- vim-markdown-toc GFM -->
 
 * [Features](#features)

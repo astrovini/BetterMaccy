@@ -50,7 +50,7 @@ struct HistoryItemView: View {
       item.ensureThumbnailImage()
     }
     .onTapGesture {
-      if NSEvent.modifierFlags.contains(.command) && appState.multiSelectionEnabled {
+      if NSEvent.modifierFlags.contains(.shift) && appState.multiSelectionEnabled {
         appState.navigator.addToSelection(item: item)
       } else {
         Task {

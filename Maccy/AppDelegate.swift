@@ -11,11 +11,21 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
     statusItem.behavior = .removalAllowed
     statusItem.button?.action = #selector(performStatusItemClick)
-    statusItem.button?.image = Defaults[.menuIcon].image
+    statusItem.button?.image = AppDelegate.menuIconImage(Defaults[.menuIcon])
     statusItem.button?.imagePosition = .imageLeft
     statusItem.button?.target = self
     return statusItem
   }()
+
+  // Dev builds (scripts/dev.sh) always show the clipboard icon so they are
+  // distinguishable from the installed release build in the menu bar.
+  private static func menuIconImage(_ icon: MenuIcon) -> NSImage {
+    #if DEV_BUILD
+    return MenuIcon.clipboard.image
+    #else
+    return icon.image
+    #endif
+  }
 
   private var isStatusItemDisabled: Bool {
     Defaults[.ignoreEvents] || Defaults[.enabledPasteboardTypes].isEmpty
@@ -60,7 +70,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     Task {
       for await value in Defaults.updates(.menuIcon, initial: false) {
-        statusItem.button?.image = value.image
+        statusItem.button?.image = AppDelegate.menuIconImage(value)
       }
     }
 

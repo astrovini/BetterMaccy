@@ -14,7 +14,10 @@ cd "$(dirname "$0")/.."
 
 IDENTITY="Developer ID Application: José Miranda (L228C8LS8X)"
 
+# DEV_BUILD forces the clipboard menu bar icon so the dev instance is
+# visually distinguishable from the installed release build.
 xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
+  SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) DEV_BUILD' \
   CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES build
 
 APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name Maccy.app | head -1)

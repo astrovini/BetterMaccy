@@ -8,6 +8,7 @@ struct AppearanceSettingsPane: View {
   @Default(.popupScreen) private var popupScreen
   @Default(.pinTo) private var pinTo
   @Default(.imageMaxHeight) private var imageHeight
+  @Default(.previewAutoOpen) private var previewAutoOpen
   @Default(.previewDelay) private var previewDelay
   @Default(.highlightMatch) private var highlightMatch
   @Default(.menuIcon) private var menuIcon
@@ -108,6 +109,12 @@ struct AppearanceSettingsPane: View {
           Stepper("", value: $previewDelay, in: 200...100_000)
             .labelsHidden()
         }
+        .disabled(!previewAutoOpen)
+
+        Defaults.Toggle(key: .previewAutoOpen) {
+          Text("PreviewAutoOpen", tableName: "AppearanceSettings")
+        }
+        .help(Text("PreviewAutoOpenTooltip", tableName: "AppearanceSettings"))
       }
 
       Settings.Section(

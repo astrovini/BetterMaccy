@@ -223,6 +223,7 @@ class SlideoutController {
   func startAutoOpen() {
     cancelAutoOpen()
 
+    guard Defaults[.previewAutoOpen] else { return }
     guard autoOpenEnabled else { return }
     guard !autoOpenSuppressed else { return }
     guard !state.isOpen else { return }

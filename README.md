@@ -77,7 +77,7 @@ brew install maccy
 You can tell Maccy to ignore all copied items:
 
 ```sh
-defaults write org.p0deje.Maccy ignoreEvents true # default is false
+defaults write com.astrovini.maccy ignoreEvents true # default is false
 ```
 
 This is useful if you have some workflow for copying sensitive data. You can set `ignoreEvents` to true, copy the data and set `ignoreEvents` back to false.
@@ -115,14 +115,14 @@ By default, Maccy checks clipboard every 500 ms, which should be enough for most
 to speed it up, you can change it with `defaults`:
 
 ```sh
-defaults write org.p0deje.Maccy clipboardCheckInterval 0.1 # 100 ms
+defaults write com.astrovini.maccy clipboardCheckInterval 0.1 # 100 ms
 ```
 
 ## FAQ
 
 ### Why doesn't it paste when I select an item in history?
 
-1. Make sure you have "Paste automatically" enabled in Preferences.
+1. Make sure you have "Paste automatically" enabled in Preferences (enabled by default in this fork).
 2. Make sure "Maccy" is added to System Settings -> Privacy & Security -> Accessibility.
 
 ### When assigning a hotkey to open Maccy, it says that this hotkey is already used in some system setting.
@@ -142,7 +142,7 @@ defaults write org.p0deje.Maccy clipboardCheckInterval 0.1 # 100 ms
 If for some reason it doesn't work, run the following command in Terminal.app:
 
 ```sh
-defaults write org.p0deje.Maccy showFooter 1
+defaults write com.astrovini.maccy showFooter 1
 ```
 
 ### How to ignore copies from [Universal Clipboard](https://support.apple.com/en-us/102430)?

@@ -17,6 +17,7 @@ struct AppearanceSettingsPane: View {
   @Default(.searchVisibility) private var searchVisibility
   @Default(.showFooter) private var showFooter
   @Default(.windowPosition) private var windowPosition
+  @Default(.windowSize) private var windowSize
   @Default(.showApplicationIcons) private var showApplicationIcons
 
   @State private var screens = NSScreen.screens
@@ -25,6 +26,13 @@ struct AppearanceSettingsPane: View {
     let formatter = NumberFormatter()
     formatter.minimum = 1
     formatter.maximum = 200
+    return formatter
+  }()
+
+  private let popupHeightFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.minimum = 100
+    formatter.maximum = 2000
     return formatter
   }()
 
@@ -89,6 +97,20 @@ struct AppearanceSettingsPane: View {
         .labelsHidden()
         .frame(width: 141, alignment: .leading)
         .help(Text("PinToTooltip", tableName: "AppearanceSettings"))
+      }
+
+      Settings.Section(label: { Text("PopupHeight", tableName: "AppearanceSettings") }) {
+        let popupHeight = Binding<Int>(
+          get: { Int(windowSize.height) },
+          set: { windowSize.height = CGFloat($0) }
+        )
+        HStack {
+          TextField("", value: popupHeight, formatter: popupHeightFormatter)
+            .frame(width: 120)
+            .help(Text("PopupHeightTooltip", tableName: "AppearanceSettings"))
+          Stepper("", value: popupHeight, in: 100...2000, step: 50)
+            .labelsHidden()
+        }
       }
 
       Settings.Section(label: { Text("ImageHeight", tableName: "AppearanceSettings") }) {

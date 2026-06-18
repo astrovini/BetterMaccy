@@ -4,15 +4,15 @@
     <title>MaccyCustom</title>
     <link>https://github.com/astrovini/MaccyCustom</link>
     <item>
-      <title>2.6.4</title>
-      <pubDate>Mon, 15 Jun 2026 11:12:37 -0600</pubDate>
-      <sparkle:version>62</sparkle:version>
-      <sparkle:shortVersionString>2.6.4</sparkle:shortVersionString>
+      <title>2.7.0</title>
+      <pubDate>Thu, 18 Jun 2026 04:09:54 -0600</pubDate>
+      <sparkle:version>63</sparkle:version>
+      <sparkle:shortVersionString>2.7.0</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-      <link>https://github.com/astrovini/MaccyCustom/releases/tag/v2.6.4</link>
+      <link>https://github.com/astrovini/MaccyCustom/releases/tag/v2.7.0</link>
       <enclosure
-        url="https://github.com/astrovini/MaccyCustom/releases/download/v2.6.4/Maccy-2.6.4.zip"
-        length="3737092"
+        url="https://github.com/astrovini/MaccyCustom/releases/download/v2.7.0/Maccy-2.7.0.zip"
+        length="3764850"
         type="application/octet-stream"/>
     </item>
   </channel>

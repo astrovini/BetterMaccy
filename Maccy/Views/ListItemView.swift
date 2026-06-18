@@ -40,6 +40,9 @@ struct ListItemView<Title: View, ID: Hashable>: View {
   var selectionIndex: Int?
   var help: LocalizedStringKey?
   var selectionAppearance: SelectionAppearance = .none
+  var isFavorited: Bool = false
+  var showFavoriteToggle: Bool = false
+  var onToggleFavorite: (() -> Void)?
   @ViewBuilder var title: () -> Title
 
   @Default(.showApplicationIcons) private var showIcons
@@ -81,6 +84,19 @@ struct ListItemView<Title: View, ID: Hashable>: View {
       Spacer()
 
       HStack(spacing: 5) {
+        if showFavoriteToggle, let onToggleFavorite {
+          Button(action: onToggleFavorite) {
+            Image(systemName: isFavorited ? "star.fill" : "star")
+              .foregroundStyle(
+                isFavorited
+                  ? Color.yellow
+                  : (isSelected ? Color.white : Color.secondary)
+              )
+          }
+          .buttonStyle(.plain)
+          .help(isFavorited ? "Remove from Favorites" : "Add to Favorites")
+        }
+
         if let index = selectionIndex {
           Text("\(index + 1)")
             .font(.caption)

@@ -21,6 +21,21 @@ struct HeaderView: View {
         .padding(.horizontal, Popup.horizontalPadding)
 
         ToolbarButton {
+          withAnimation {
+            appState.history.toggleScope()
+          }
+        } label: {
+          Image(
+            systemName: appState.history.scope == .favorites ? "star.fill" : "star"
+          )
+          .foregroundStyle(
+            appState.history.scope == .favorites ? Color.accentColor : Color.primary
+          )
+        }
+        .help(Text("Favorites"))
+        .padding(.trailing, Popup.horizontalPadding)
+
+        ToolbarButton {
           controller.togglePreview()
         } label: {
           Image(

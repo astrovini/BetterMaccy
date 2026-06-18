@@ -42,7 +42,12 @@ struct HistoryItemView: View {
       shortcuts: item.shortcuts,
       isSelected: item.isSelected,
       selectionIndex: visualIndex,
-      selectionAppearance: selectionAppearance
+      selectionAppearance: selectionAppearance,
+      isFavorited: item.isFavorited,
+      showFavoriteToggle: item.isSelected || item.isFavorited,
+      onToggleFavorite: {
+        Task { appState.history.toggleFavorite(item) }
+      }
     ) {
       Text(verbatim: item.title)
     }

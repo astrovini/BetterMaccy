@@ -13,26 +13,77 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   static let shared = History()
   let logger = Logger(label: "org.p0deje.Maccy")
 
+  // Which set of items the popup is currently showing.
+  enum Scope {
+    case recents
+    case favorites
+  }
+
   var items: [HistoryItemDecorator] = []
   var pasteStack: PasteStack?
 
+  var scope: Scope = .recents
+
   var pinnedItems: [HistoryItemDecorator] { items.filter(\.isPinned) }
   var unpinnedItems: [HistoryItemDecorator] { items.filter(\.isUnpinned) }
+  var favoritedItems: [HistoryItemDecorator] { all.filter(\.isFavorited) }
+
+  // The base set the current scope searches/filters within.
+  private var scopedAll: [HistoryItemDecorator] {
+    scope == .favorites ? all.filter(\.isFavorited) : all
+  }
+
+  // The item to select when the visible list is (re)populated with no search query.
+  private var firstScopedItem: HistoryItemDecorator? {
+    scope == .favorites ? items.first : unpinnedItems.first
+  }
 
   var searchQuery: String = "" {
     didSet {
       throttler.throttle { [self] in
-        updateItems(search.search(string: searchQuery, within: all))
-
-        if searchQuery.isEmpty {
-          AppState.shared.navigator.select(item: unpinnedItems.first)
-        } else {
-          AppState.shared.navigator.highlightFirst()
-        }
-
-        AppState.shared.popup.needsResize = true
+        applySearch()
       }
     }
+  }
+
+  private func applySearch() {
+    updateItems(search.search(string: searchQuery, within: scopedAll))
+
+    if searchQuery.isEmpty {
+      AppState.shared.navigator.select(item: firstScopedItem)
+    } else {
+      AppState.shared.navigator.highlightFirst()
+    }
+
+    AppState.shared.popup.needsResize = true
+  }
+
+  @MainActor
+  func setScope(_ newScope: Scope) {
+    guard scope != newScope else { return }
+    scope = newScope
+
+    // Re-run the filter for the new scope. Clearing a non-empty query triggers
+    // the throttled didSet; otherwise refresh immediately.
+    if searchQuery.isEmpty {
+      applySearch()
+    } else {
+      searchQuery = ""
+    }
+  }
+
+  @MainActor
+  func toggleScope() {
+    setScope(scope == .favorites ? .recents : .favorites)
+  }
+
+  // Called when the popup closes so the next open always starts on Recents.
+  @MainActor
+  func resetScopeToRecents() {
+    guard scope != .recents else { return }
+    scope = .recents
+    items = scopedAll
+    updateUnpinnedShortcuts()
   }
 
   var pressedShortcutItem: HistoryItemDecorator? {
@@ -106,7 +157,7 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
     let descriptor = FetchDescriptor<HistoryItem>()
     let results = try Storage.shared.context.fetch(descriptor)
     all = sorter.sort(results).map { HistoryItemDecorator($0) }
-    items = all
+    items = scopedAll
 
     limitHistorySize(to: Defaults[.size])
 
@@ -119,9 +170,10 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
 
   @MainActor
   private func limitHistorySize(to maxSize: Int) {
-    let unpinned = all.filter(\.isUnpinned)
-    if unpinned.count >= maxSize {
-      unpinned[maxSize...].forEach(delete)
+    // Favorites are kept regardless of history size, just like pins.
+    let evictable = all.filter { $0.isUnpinned && !$0.isFavorited }
+    if evictable.count >= maxSize {
+      evictable[maxSize...].forEach(delete)
     }
   }
 
@@ -151,6 +203,7 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
       item.firstCopiedAt = existingHistoryItem.firstCopiedAt
       item.numberOfCopies += existingHistoryItem.numberOfCopies
       item.pin = existingHistoryItem.pin
+      item.favorite = existingHistoryItem.favorite
       item.title = existingHistoryItem.title
       if !item.fromMaccy {
         item.application = existingHistoryItem.application
@@ -188,7 +241,7 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
         all.insert(itemDecorator, at: index)
       }
 
-      items = all
+      items = scopedAll
       updateUnpinnedShortcuts()
       AppState.shared.popup.needsResize = true
     }
@@ -212,23 +265,24 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
   @MainActor
   func clear() {
     withLogging("Clearing history") {
+      // Keep pinned and favorited items, discard the rest.
       all.forEach { item in
-        if item.isUnpinned {
+        if item.isUnpinned && !item.isFavorited {
           cleanup(item)
         }
       }
-      all.removeAll(where: \.isUnpinned)
-      sessionLog.removeValues { $0.pin == nil }
-      items = all
+      all.removeAll { $0.isUnpinned && !$0.isFavorited }
+      sessionLog.removeValues { $0.pin == nil && !$0.favorite }
+      items = scopedAll
 
       try? Storage.shared.context.transaction {
         try? Storage.shared.context.delete(
           model: HistoryItem.self,
-          where: #Predicate { $0.pin == nil }
+          where: #Predicate { $0.pin == nil && $0.favorite == false }
         )
         try? Storage.shared.context.delete(
           model: HistoryItemContent.self,
-          where: #Predicate { $0.item?.pin == nil }
+          where: #Predicate { $0.item?.pin == nil && $0.item?.favorite == false }
         )
       }
       Storage.shared.context.processPendingChanges()
@@ -434,12 +488,24 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
       all.insert(item, at: newIndex)
     }
 
-    items = all
+    items = scopedAll
 
     searchQuery = ""
     updateUnpinnedShortcuts()
     if item.isUnpinned {
       AppState.shared.navigator.scrollTarget = item.id
+    }
+  }
+
+  @MainActor
+  func toggleFavorite(_ item: HistoryItemDecorator?) {
+    guard let item else { return }
+
+    item.toggleFavorite()
+
+    // When viewing favorites, unfavoriting an item should drop it from the list.
+    if scope == .favorites {
+      applySearch()
     }
   }
 

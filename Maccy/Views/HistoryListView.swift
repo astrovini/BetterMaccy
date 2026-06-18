@@ -13,18 +13,35 @@ struct HistoryListView: View {
   @Default(.previewDelay) private var previewDelay
   @Default(.showFooter) private var showFooter
 
+  private var favoritesScope: Bool {
+    appState.history.scope == .favorites
+  }
+
   private var pinnedItems: [HistoryItemDecorator] {
     appState.history.pinnedItems.filter(\.isVisible)
   }
   private var unpinnedItems: [HistoryItemDecorator] {
     appState.history.unpinnedItems.filter(\.isVisible)
   }
+
+  // In Favorites scope we render a single flat list of every favorited item,
+  // ignoring the pinned/unpinned split.
+  private var listItems: [HistoryItemDecorator] {
+    favoritesScope
+      ? appState.history.items.filter(\.isVisible)
+      : unpinnedItems
+  }
+
   private var showPinsSeparator: Bool {
     pinsVisible && !unpinnedItems.isEmpty
   }
 
   private var pinsVisible: Bool {
-    return !pinnedItems.isEmpty
+    return !favoritesScope && !pinnedItems.isEmpty
+  }
+
+  private var favoritesEmpty: Bool {
+    favoritesScope && listItems.isEmpty && appState.history.searchQuery.isEmpty
   }
 
   private var pasteStackVisible: Bool {
@@ -65,6 +82,24 @@ struct HistoryListView: View {
       .padding(.vertical, Popup.verticalSeparatorPadding)
   }
 
+  @ViewBuilder
+  private var favoritesEmptyState: some View {
+    VStack(spacing: 6) {
+      Image(systemName: "star")
+        .font(.system(size: 26))
+        .foregroundStyle(.secondary)
+      Text("No favorites yet")
+        .foregroundStyle(.primary)
+      Text("Select an item and press the favorite key, or click the star on a row.")
+        .font(.caption)
+        .foregroundStyle(.secondary)
+        .multilineTextAlignment(.center)
+    }
+    .frame(maxWidth: .infinity)
+    .padding(.vertical, 24)
+    .padding(.horizontal, 16)
+  }
+
   var body: some View {
     let topPinsVisible = pinTo == .top && pinsVisible
     let bottomPinsVisible = pinTo == .bottom && pinsVisible
@@ -96,8 +131,14 @@ struct HistoryListView: View {
 
     ScrollView {
       ScrollViewReader { proxy in
-        MultipleSelectionListView(items: unpinnedItems) { previous, item, next, index in
-          HistoryItemView(item: item, previous: previous, next: next, index: index)
+        Group {
+          if favoritesEmpty {
+            favoritesEmptyState
+          } else {
+            MultipleSelectionListView(items: listItems) { previous, item, next, index in
+              HistoryItemView(item: item, previous: previous, next: next, index: index)
+            }
+          }
         }
         .padding(.top, scrollTopPadding)
         .padding(.bottom, scrollBottomPadding)
@@ -124,6 +165,8 @@ struct HistoryListView: View {
             modifierFlags.flags = []
             appState.navigator.isKeyboardNavigating = true
             appState.preview.cancelAutoOpen()
+            // Always reopen on Recents.
+            appState.history.resetScopeToRecents()
           }
         }
         // Calculate the total height inside a scroll view.

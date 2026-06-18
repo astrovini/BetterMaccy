@@ -54,6 +54,14 @@ struct GeneralSettingsPane: View {
         KeyboardShortcuts.Recorder(for: .delete)
           .help(Text("DeleteTooltip", tableName: "GeneralSettings"))
       }
+      Settings.Section(label: { Text("Favorite") }) {
+        KeyboardShortcuts.Recorder(for: .favorite)
+          .help(Text("Toggle favorite on the selected item(s)"))
+      }
+      Settings.Section(label: { Text("Show Favorites") }) {
+        KeyboardShortcuts.Recorder(for: .favoritesView)
+          .help(Text("Switch between Recents and Favorites"))
+      }
       Settings.Section(
         bottomDivider: true,
         label: { Text("ShowPreview", tableName: "GeneralSettings") }

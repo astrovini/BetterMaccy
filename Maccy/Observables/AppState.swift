@@ -87,6 +87,15 @@ class AppState: Sendable {
   }
 
   @MainActor
+  func toggleFavorite() {
+    withTransaction(Transaction()) {
+      navigator.selection.forEach { _, item in
+        history.toggleFavorite(item)
+      }
+    }
+  }
+
+  @MainActor
   func removePasteStack() {
     history.interruptPasteStack()
     navigator.highlightFirst()

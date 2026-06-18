@@ -53,6 +53,8 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
   var isPinned: Bool { item.pin != nil }
   var isUnpinned: Bool { item.pin == nil }
 
+  var isFavorited: Bool = false
+
   func hash(into hasher: inout Hasher) {
     // We need to hash title and attributedTitle, so SwiftUI knows it needs to update the view if they chage
     hasher.combine(id)
@@ -66,9 +68,11 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     self.item = item
     self.shortcuts = shortcuts
     self.title = item.title
+    self.isFavorited = item.favorite
     self.applicationImage = ApplicationImageCache.shared.getImage(item: item)
 
     synchronizeItemPin()
+    synchronizeItemFavorite()
     synchronizeItemTitle()
   }
 
@@ -183,6 +187,12 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     }
   }
 
+  @MainActor
+  func toggleFavorite() {
+    item.favorite.toggle()
+    isFavorited = item.favorite
+  }
+
   private func synchronizeItemPin() {
     _ = withObservationTracking {
       item.pin
@@ -192,6 +202,17 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
           self.shortcuts = KeyShortcut.create(character: pin)
         }
         self.synchronizeItemPin()
+      }
+    }
+  }
+
+  private func synchronizeItemFavorite() {
+    _ = withObservationTracking {
+      item.favorite
+    } onChange: {
+      DispatchQueue.main.async {
+        self.isFavorited = self.item.favorite
+        self.synchronizeItemFavorite()
       }
     }
   }

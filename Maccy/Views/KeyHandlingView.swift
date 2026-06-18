@@ -147,6 +147,12 @@ struct KeyHandlingView<Content: View>: View {
         case .pinOrUnpin:
           appState.togglePin()
           return .handled
+        case .favoriteOrUnfavorite:
+          appState.toggleFavorite()
+          return .handled
+        case .toggleFavoritesView:
+          appState.history.toggleScope()
+          return .handled
         case .selectCurrentItem:
           appState.select()
           return .handled

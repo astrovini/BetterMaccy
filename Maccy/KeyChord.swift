@@ -17,6 +17,14 @@ enum KeyChord: CaseIterable {
   static var pinKey: Key? { Sauce.shared.key(shortcut: .pin) }
   static var pinModifiers: NSEvent.ModifierFlags? { KeyboardShortcuts.Shortcut(name: .pin)?.modifiers }
 
+  static var favoriteKey: Key? { Sauce.shared.key(shortcut: .favorite) }
+  static var favoriteModifiers: NSEvent.ModifierFlags? { KeyboardShortcuts.Shortcut(name: .favorite)?.modifiers }
+
+  static var favoritesViewKey: Key? { Sauce.shared.key(shortcut: .favoritesView) }
+  static var favoritesViewModifiers: NSEvent.ModifierFlags? {
+    KeyboardShortcuts.Shortcut(name: .favoritesView)?.modifiers
+  }
+
   static var previewKey: Key? { Sauce.shared.key(shortcut: .togglePreview) }
   static var previewModifiers: NSEvent.ModifierFlags? { KeyboardShortcuts.Shortcut(name: .togglePreview)?.modifiers }
 
@@ -37,6 +45,8 @@ enum KeyChord: CaseIterable {
   case extendToFirst
   case openPreferences
   case pinOrUnpin
+  case favoriteOrUnfavorite
+  case toggleFavoritesView
   case selectCurrentItem
   case close
   case togglePreview
@@ -114,6 +124,10 @@ enum KeyChord: CaseIterable {
       self = .moveToFirst
     case (KeyChord.pinKey, KeyChord.pinModifiers):
       self = .pinOrUnpin
+    case (KeyChord.favoriteKey, KeyChord.favoriteModifiers):
+      self = .favoriteOrUnfavorite
+    case (KeyChord.favoritesViewKey, KeyChord.favoritesViewModifiers):
+      self = .toggleFavoritesView
     case (.comma, [.command]):
       self = .openPreferences
     case (.return, _),

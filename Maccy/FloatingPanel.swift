@@ -51,7 +51,7 @@ class FloatingPanel<Content: View>: NSPanel, NSWindowDelegate {
     standardWindowButton(.miniaturizeButton)?.isHidden = true
     standardWindowButton(.zoomButton)?.isHidden = true
 
-    contentView = NSHostingView(
+    let hostingView = NSHostingView(
       rootView: view()
         // The safe area is ignored because the title bar still interferes with the geometry
         .ignoresSafeArea()
@@ -60,7 +60,20 @@ class FloatingPanel<Content: View>: NSPanel, NSWindowDelegate {
             self.saveWindowPosition()
         })
     )
+    // Don't let the SwiftUI content drive the window's minimum size. The list
+    // content is pinned to an exact width (`.frame(width: contentWidth)`), which
+    // NSHostingView would otherwise propagate as the window's contentMinSize —
+    // ratcheting the minimum up every time the user widens the popup and making
+    // it impossible to shrink back down. Window sizing is governed explicitly by
+    // `windowWillResize` and our own setFrame calls instead.
+    hostingView.sizingOptions = []
+    contentView = hostingView
     contentView?.layer?.cornerRadius = Popup.cornerRadius + Popup.horizontalPadding
+
+    contentMinSize = NSSize(
+      width: AppState.shared.preview.minimumContentWidth,
+      height: Popup.minimumHeight
+    )
   }
 
   func toggle(height: CGFloat, at popupPosition: PopupPosition = Defaults[.popupPosition]) {
@@ -73,7 +86,11 @@ class FloatingPanel<Content: View>: NSPanel, NSWindowDelegate {
 
   func open(height: CGFloat, at popupPosition: PopupPosition = Defaults[.popupPosition]) {
     let size = Defaults[.windowSize]
-    setContentSize(NSSize(width: min(frame.width, size.width), height: min(height, size.height)))
+    // Sync the content width to the configured size so the popup honors the
+    // Popup width setting (and any value changed while it was closed). The
+    // preview is always closed on open, so the whole window is the content.
+    AppState.shared.preview.contentWidth = size.width
+    setContentSize(NSSize(width: size.width, height: min(height, size.height)))
     setFrameOrigin(popupPosition.origin(size: frame.size, statusBarButton: statusBarButton))
     orderFrontRegardless()
     makeKey()

@@ -31,7 +31,14 @@ struct AppearanceSettingsPane: View {
 
   private let popupHeightFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
-    formatter.minimum = 100
+    formatter.minimum = 210
+    formatter.maximum = 2000
+    return formatter
+  }()
+
+  private let popupWidthFormatter: NumberFormatter = {
+    let formatter = NumberFormatter()
+    formatter.minimum = 250
     formatter.maximum = 2000
     return formatter
   }()
@@ -108,7 +115,21 @@ struct AppearanceSettingsPane: View {
           TextField("", value: popupHeight, formatter: popupHeightFormatter)
             .frame(width: 120)
             .help(Text("PopupHeightTooltip", tableName: "AppearanceSettings"))
-          Stepper("", value: popupHeight, in: 100...2000, step: 50)
+          Stepper("", value: popupHeight, in: 210...2000, step: 50)
+            .labelsHidden()
+        }
+      }
+
+      Settings.Section(label: { Text("PopupWidth", tableName: "AppearanceSettings") }) {
+        let popupWidth = Binding<Int>(
+          get: { Int(windowSize.width) },
+          set: { windowSize.width = CGFloat($0) }
+        )
+        HStack {
+          TextField("", value: popupWidth, formatter: popupWidthFormatter)
+            .frame(width: 120)
+            .help(Text("PopupWidthTooltip", tableName: "AppearanceSettings"))
+          Stepper("", value: popupWidth, in: 250...2000, step: 50)
             .labelsHidden()
         }
       }

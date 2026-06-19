@@ -70,7 +70,7 @@ class SlideoutController {
   let onContentResize: (CGFloat) -> Void
   let onSlideoutResize: (CGFloat) -> Void
 
-  let minimumContentWidth: CGFloat = 200
+  let minimumContentWidth: CGFloat = 250
   var contentResizeWidth: CGFloat = 0
   var contentAnimationWidth: CGFloat?
 

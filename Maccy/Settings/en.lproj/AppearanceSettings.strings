@@ -15,7 +15,9 @@
 "PinToBottom" = "Bottom";
 "PinToTooltip" = "Change the location of pinned items.\nDefault: Top.";
 "PopupHeight" = "Popup height:";
-"PopupHeightTooltip" = "Maximum popup height in pixels.\nThe popup grows to fit items up to this height.\nDefault: 500.";
+"PopupHeightTooltip" = "Maximum popup height in pixels.\nThe popup grows to fit items up to this height.\nMinimum: 210. Default: 500.";
+"PopupWidth" = "Popup width:";
+"PopupWidthTooltip" = "Popup width in pixels.\nApplied the next time the popup opens.\nMinimum: 250. Default: 450.";
 "ImageHeight" = "Image height:";
 "ImageHeightTooltip" = "Maximum image preview height.\nDefault: 40.\nHint: Set to 16 to look like text items.";
 "PreviewDelay" = "Preview delay:";

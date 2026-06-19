@@ -139,6 +139,12 @@ where Content: View, Slideout: View {
         maxWidth: controller.state == .closed ? 0 : nil
       )
       .clipped()
+      // When closed, the slideout content still lays out at its minWidth (200pt)
+      // and overflows this zero-width clipped frame. On macOS 26 that clipped
+      // overflow still receives hit-testing, so an invisible preview pane sits
+      // over the right side of the list and swallows mouse hover. Disable
+      // hit-testing while closed so the rows underneath stay interactive.
+      .allowsHitTesting(controller.state != .closed)
       .readWidth(controller, into: \.slideoutResizeWidth)
     }
     .environment(\.layoutDirection, leftToRight ? .leftToRight : .rightToLeft)

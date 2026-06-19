@@ -6,7 +6,7 @@ extension KeyboardShortcuts.Name {
   static let favorite = Self("favorite", default: Shortcut(.f, modifiers: [.option, .shift]))
   static let favoritesView = Self("favoritesView", default: Shortcut(.f, modifiers: [.option]))
   static let delete = Self("delete", default: Shortcut(.delete, modifiers: [.option]))
-  static let togglePreview = Self("togglePreview", default: Shortcut(.space, modifiers: [.control]))
+  static let togglePreview = Self("togglePreview", default: Shortcut(.space, modifiers: [.option]))
 
   /// Every shortcut the app defines. Keep this in sync when adding new shortcuts.
   static let allShortcuts: [Self] = [.popup, .pin, .favorite, .favoritesView, .delete, .togglePreview]

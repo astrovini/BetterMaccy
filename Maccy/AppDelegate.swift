@@ -100,7 +100,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     migrateUserDefaults()
-    disableUnusedGlobalHotkeys()
+    disableInPopupGlobalHotkeys()
 
     panel = FloatingPanel(
       contentRect: NSRect(origin: .zero, size: Defaults[.windowSize]),
@@ -180,18 +180,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
   }
 
-  private func disableUnusedGlobalHotkeys() {
-    let names: [KeyboardShortcuts.Name] = [.delete, .pin]
-    KeyboardShortcuts.disable(names)
+  // Only `.popup` should be a system-wide hotkey. Every other shortcut is handled
+  // inside the popup via KeyChord/onKeyPress, but the KeyboardShortcuts library
+  // registers *every* shortcut as a global hotkey whenever its value is set
+  // (including on first-launch defaults and each time it's recorded in Settings).
+  // A globally-claimed shortcut with no handler is swallowed system-wide and never
+  // reaches the popup — so we unregister the global hotkey for every in-popup
+  // shortcut, and re-unregister it whenever the library re-claims it on change.
+  private func disableInPopupGlobalHotkeys() {
+    KeyboardShortcuts.disable(KeyboardShortcuts.Name.inPopupShortcuts)
 
     NotificationCenter.default.addObserver(
       forName: Notification.Name("KeyboardShortcuts_shortcutByNameDidChange"),
       object: nil,
       queue: nil
     ) { notification in
-      if let name = notification.userInfo?["name"] as? KeyboardShortcuts.Name, names.contains(name) {
-        KeyboardShortcuts.disable(name)
+      guard let name = notification.userInfo?["name"] as? KeyboardShortcuts.Name,
+            !KeyboardShortcuts.Name.globalShortcuts.contains(name) else {
+        return
       }
+      KeyboardShortcuts.disable(name)
     }
   }
 }

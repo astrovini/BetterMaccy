@@ -98,6 +98,13 @@ class SlideoutController {
   var state: SlideoutState = .closed
   var resizingMode: ResizingMode = .none
 
+  /// In manual mode (auto-open off) with "Keep preview open" enabled, an open
+  /// preview is pinned: hovering the footer won't dismiss or blank it. When
+  /// auto-open is on the preview deliberately follows the pointer instead.
+  var staysOpenOnHover: Bool {
+    !Defaults[.previewAutoOpen] && Defaults[.keepPreviewOpen]
+  }
+
   var nswindow: NSWindow? {
     return AppState.shared.appDelegate?.panel
   }

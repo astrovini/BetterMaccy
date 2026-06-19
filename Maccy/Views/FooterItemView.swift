@@ -11,7 +11,9 @@ struct FooterItemView: View {
       }
     }
     .onHover { hovering in
-      if hovering && appState.preview.state.isOpen {
+      // Hovering the footer dismisses the preview, unless it's pinned open
+      // (manual mode + "Keep preview open" setting). See `staysOpenOnHover`.
+      if hovering && appState.preview.state.isOpen && !appState.preview.staysOpenOnHover {
         appState.preview.togglePreview()
       }
     }

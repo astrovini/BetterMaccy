@@ -144,6 +144,13 @@ struct AppearanceSettingsPane: View {
         }
       }
 
+      Settings.Section(title: "") {
+        Defaults.Toggle(key: .previewAutoOpen) {
+          Text("PreviewAutoOpen", tableName: "AppearanceSettings")
+        }
+        .help(Text("PreviewAutoOpenTooltip", tableName: "AppearanceSettings"))
+      }
+
       Settings.Section(label: { Text("PreviewDelay", tableName: "AppearanceSettings") }) {
         HStack {
           TextField("", value: $previewDelay, formatter: previewDelayFormatter)
@@ -154,10 +161,11 @@ struct AppearanceSettingsPane: View {
         }
         .disabled(!previewAutoOpen)
 
-        Defaults.Toggle(key: .previewAutoOpen) {
-          Text("PreviewAutoOpen", tableName: "AppearanceSettings")
+        Defaults.Toggle(key: .keepPreviewOpen) {
+          Text("KeepPreviewOpen", tableName: "AppearanceSettings")
         }
-        .help(Text("PreviewAutoOpenTooltip", tableName: "AppearanceSettings"))
+        .help(Text("KeepPreviewOpenTooltip", tableName: "AppearanceSettings"))
+        .disabled(previewAutoOpen)
       }
 
       Settings.Section(

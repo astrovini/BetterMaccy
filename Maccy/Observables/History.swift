@@ -40,6 +40,11 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
 
   var searchQuery: String = "" {
     didSet {
+      // SwiftUI writes the search field's Binding back (with its unchanged value)
+      // whenever the field loses first responder — e.g. when the user clicks the
+      // selectable preview text. Without this guard that no-op assignment would
+      // re-run applySearch() and snap the selection back to the first item.
+      guard searchQuery != oldValue else { return }
       throttler.throttle { [self] in
         applySearch()
       }

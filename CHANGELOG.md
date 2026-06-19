@@ -34,6 +34,14 @@ reverted on an upstream rebase.
   (`KeyboardShortcuts.Name+Shortcuts.swift`).
 ### Fixed
 
+- **Clicking the preview text jumped the selection to the first entry.** The
+  first click in the now-selectable preview pane pulled focus from the search
+  field, which made SwiftUI write the search `Binding` back with its unchanged
+  value. `searchQuery`'s `didSet` re-ran the filter on that no-op assignment,
+  and an empty query re-selects the top item — so the selection (and preview)
+  snapped to the first entry, but only on the first click after opening. Fixed
+  by skipping the re-filter when the query hasn't actually changed
+  (`History.swift`).
 - **Couldn't shrink the popup again after widening it (pre-existing).** The list
   content is pinned to an exact width, which `NSHostingView` propagated as the
   window's minimum size — so every time the popup was widened the floor ratcheted

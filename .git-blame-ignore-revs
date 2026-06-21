@@ -1,0 +1,9 @@
+# Revisions listed here are skipped by `git blame` (and GitHub's blame view).
+# Add wide, purely-mechanical commits so line-level history points at the
+# real authoring commit rather than the sweep.
+#
+# Configure locally with:
+#   git config blame.ignoreRevsFile .git-blame-ignore-revs
+
+# Rebrand MaccyCustom → BetterMaccy
+52d5cc865c4906b92e9f9776e92548fd027e8b93

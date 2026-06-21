@@ -16,16 +16,16 @@ TEAM_ID="L228C8LS8X"
 PROFILE="maccy-notary"
 OUT=dist
 
-VERSION=$(xcodebuild -project Maccy.xcodeproj -showBuildSettings -configuration Release 2>/dev/null \
+VERSION=$(xcodebuild -project BetterMaccy.xcodeproj -showBuildSettings -configuration Release 2>/dev/null \
   | awk '/MARKETING_VERSION/ { print $3; exit }')
-BUILD=$(xcodebuild -project Maccy.xcodeproj -showBuildSettings -configuration Release 2>/dev/null \
+BUILD=$(xcodebuild -project BetterMaccy.xcodeproj -showBuildSettings -configuration Release 2>/dev/null \
   | awk '/CURRENT_PROJECT_VERSION/ { print $3; exit }')
 echo "==> Building BetterMaccy $VERSION ($BUILD)"
 
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
-xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
+xcodebuild -project BetterMaccy.xcodeproj -scheme BetterMaccy -configuration Release \
   CODE_SIGN_STYLE=Manual \
   DEVELOPMENT_TEAM="$TEAM_ID" \
   CODE_SIGN_IDENTITY="$IDENTITY" \
@@ -33,7 +33,7 @@ xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
   OTHER_CODE_SIGN_FLAGS="--timestamp" \
   build
 
-APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name BetterMaccy.app | head -1)
+APP=$(find ~/Library/Developer/Xcode/DerivedData/BetterMaccy-*/Build/Products/Release -maxdepth 1 -name BetterMaccy.app | head -1)
 cp -R "$APP" "$OUT/"
 
 # Xcode does not re-sign the executables nested inside the prebuilt Sparkle

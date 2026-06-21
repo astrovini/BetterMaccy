@@ -49,7 +49,7 @@ class HistoryItem {
 
   private static let transientTypes: [String] = [
     NSPasteboard.PasteboardType.modified.rawValue,
-    NSPasteboard.PasteboardType.fromMaccy.rawValue,
+    NSPasteboard.PasteboardType.fromBetterMaccy.rawValue,
     NSPasteboard.PasteboardType.linkPresentationMetadata.rawValue,
     NSPasteboard.PasteboardType.customWebKitPasteboardData.rawValue,
     NSPasteboard.PasteboardType.source.rawValue,
@@ -192,7 +192,7 @@ class HistoryItem {
     return Int(modified)
   }
 
-  var fromMaccy: Bool { contentData([.fromMaccy]) != nil }
+  var fromBetterMaccy: Bool { contentData([.fromBetterMaccy]) != nil }
   var universalClipboard: Bool { contentData([.universalClipboard]) != nil }
 
   private var universalClipboardImage: Bool { universalClipboard && fileURLs.first?.pathExtension == "jpeg" }

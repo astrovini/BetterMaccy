@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct MaccyApp: App {
+struct BetterMaccyApp: App {
   @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
   // It's impossible to create sceneless application,

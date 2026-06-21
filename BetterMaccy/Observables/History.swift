@@ -11,7 +11,7 @@ import SwiftData
 @Observable
 class History: ItemsContainer { // swiftlint:disable:this type_body_length
   static let shared = History()
-  let logger = Logger(label: "org.p0deje.Maccy")
+  let logger = Logger(label: "com.astrovini.bettermaccy")
 
   // Which set of items the popup is currently showing.
   enum Scope {
@@ -210,7 +210,7 @@ class History: ItemsContainer { // swiftlint:disable:this type_body_length
       item.pin = existingHistoryItem.pin
       item.favorite = existingHistoryItem.favorite
       item.title = existingHistoryItem.title
-      if !item.fromMaccy {
+      if !item.fromBetterMaccy {
         item.application = existingHistoryItem.application
       }
       logger.info("Removing duplicate item '\(item.title)'")

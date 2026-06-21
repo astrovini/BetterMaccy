@@ -1,7 +1,7 @@
 xcuserdata/
-Maccy.xcodeproj/project.xcworkspace/xcshareddata
+BetterMaccy.xcodeproj/project.xcworkspace/xcshareddata
 .idea
 .DS_Store
-Maccy/.DS_Store
+BetterMaccy/.DS_Store
 dist/
 *.p8

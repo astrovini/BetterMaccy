@@ -40,11 +40,11 @@
 		DA009934256411F90030E697 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = DA00992F256411F90030E697 /* LICENSE */; };
 		DA009947256414800030E697 /* SwiftHEXColors in Frameworks */ = {isa = PBXBuildFile; productRef = DA009946256414800030E697 /* SwiftHEXColors */; };
 		DA009955256414E60030E697 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = DA009954256414E60030E697 /* KeyboardShortcuts */; };
-		DA05B5112C234CB2006980FE /* MaccyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05B5102C234CB1006980FE /* MaccyApp.swift */; };
+		DA05B5112C234CB2006980FE /* BetterMaccyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05B5102C234CB1006980FE /* BetterMaccyApp.swift */; };
 		DA05B5142C234DCF006980FE /* HistoryItemContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05B5122C234DCF006980FE /* HistoryItemContent.swift */; };
 		DA05B5152C234DCF006980FE /* HistoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA05B5132C234DCF006980FE /* HistoryItem.swift */; };
 		DA083A6E2C42E8E8004259A0 /* NSImage+Resized.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA083A6D2C42E8E8004259A0 /* NSImage+Resized.swift */; };
-		DA0EE7B9204657830025FC60 /* MaccyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0EE7B8204657830025FC60 /* MaccyUITests.swift */; };
+		DA0EE7B9204657830025FC60 /* BetterMaccyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0EE7B8204657830025FC60 /* BetterMaccyUITests.swift */; };
 		DA0EF1881E444B2A00E58577 /* Clipboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0EF1871E444B2A00E58577 /* Clipboard.swift */; };
 		DA0FFA2A2C8D100C00A66C97 /* ModifierFlags+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0FFA292C8D0FEC00A66C97 /* ModifierFlags+Description.swift */; };
 		DA13D7CA2C19F52B00FA9E23 /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = DA13D7C92C19F52B00FA9E23 /* LaunchAtLogin */; };
@@ -154,14 +154,14 @@
 			containerPortal = DAEE383B1E3DBEB100DD2966 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DAEE38421E3DBEB100DD2966;
-			remoteInfo = Maccy;
+			remoteInfo = BetterMaccy;
 		};
 		DA360DB51E3DF137005C6F6B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DAEE383B1E3DBEB100DD2966 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = DAEE38421E3DBEB100DD2966;
-			remoteInfo = Maccy;
+			remoteInfo = BetterMaccy;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -224,7 +224,7 @@
 		DA00992C256411F90030E697 /* appcast.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = appcast.xml; sourceTree = "<group>"; };
 		DA00992D256411F90030E697 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		DA00992F256411F90030E697 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
-		DA05B5102C234CB1006980FE /* MaccyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MaccyApp.swift; sourceTree = "<group>"; };
+		DA05B5102C234CB1006980FE /* BetterMaccyApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BetterMaccyApp.swift; sourceTree = "<group>"; };
 		DA05B5122C234DCF006980FE /* HistoryItemContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItemContent.swift; sourceTree = "<group>"; };
 		DA05B5132C234DCF006980FE /* HistoryItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryItem.swift; sourceTree = "<group>"; };
 		DA083A6D2C42E8E8004259A0 /* NSImage+Resized.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSImage+Resized.swift"; sourceTree = "<group>"; };
@@ -245,8 +245,8 @@
 		DA0D57832E424784005101AF /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/PinsSettings.strings; sourceTree = "<group>"; };
 		DA0D57842E424784005101AF /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/PreviewItemView.strings; sourceTree = "<group>"; };
 		DA0D57852E424784005101AF /* vi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = vi; path = vi.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DA0EE7B6204657830025FC60 /* MaccyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaccyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DA0EE7B8204657830025FC60 /* MaccyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MaccyUITests.swift; sourceTree = "<group>"; };
+		DA0EE7B6204657830025FC60 /* BetterMaccyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetterMaccyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA0EE7B8204657830025FC60 /* BetterMaccyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterMaccyUITests.swift; sourceTree = "<group>"; };
 		DA0EF1871E444B2A00E58577 /* Clipboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clipboard.swift; sourceTree = "<group>"; };
 		DA0FFA292C8D0FEC00A66C97 /* ModifierFlags+Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ModifierFlags+Description.swift"; sourceTree = "<group>"; };
 		DA13D7D12C19F91B00FA9E23 /* Defaults.Keys+Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Defaults.Keys+Names.swift"; sourceTree = "<group>"; };
@@ -282,7 +282,7 @@
 		DA2595DE2CBC44BE00A0A7F2 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/PreviewItemView.strings; sourceTree = "<group>"; };
 		DA2595DF2CBC44BE00A0A7F2 /* lt */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lt; path = lt.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DA2F1B0926F22DF4005D30BA /* hr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = hr; path = hr.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DA360DB01E3DF137005C6F6B /* MaccyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MaccyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DA360DB01E3DF137005C6F6B /* BetterMaccyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BetterMaccyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA360DB21E3DF137005C6F6B /* HistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = HistoryTests.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		DA360DB41E3DF137005C6F6B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DA384E85232746D800603999 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
@@ -530,11 +530,11 @@
 		DAB6266D2CAD7FCF001B720E /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/StorageSettings.strings; sourceTree = "<group>"; };
 		DAB6266E2CAD7FD6001B720E /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/PreviewItemView.strings; sourceTree = "<group>"; };
 		DAB6266F2CAD7FDA001B720E /* lv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = lv; path = lv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		DAB8CE4024E3677F00A2500E /* Maccy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Maccy.entitlements; sourceTree = "<group>"; };
+		DAB8CE4024E3677F00A2500E /* BetterMaccy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BetterMaccy.entitlements; sourceTree = "<group>"; };
 		DABDE97E2974706C005B32E9 /* KeyboardLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardLayout.swift; sourceTree = "<group>"; };
 		DAC14123232367B200FCFA30 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		DAC929D6297A0E8B00814F19 /* NSPasteboard.PasteboardType+Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPasteboard.PasteboardType+Types.swift"; sourceTree = "<group>"; };
-		DACCD5822C93605C00BAD74C /* Maccy.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Maccy.xctestplan; sourceTree = "<group>"; };
+		DACCD5822C93605C00BAD74C /* BetterMaccy.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = BetterMaccy.xctestplan; sourceTree = "<group>"; };
 		DAD665652898A1C000975096 /* KeyChord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChord.swift; sourceTree = "<group>"; };
 		DADFF1382C2F58D000DB261D /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DAE284FF232257D20080E394 /* ColorImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImage.swift; sourceTree = "<group>"; };
@@ -640,12 +640,12 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		DA0EE7B7204657830025FC60 /* MaccyUITests */ = {
+		DA0EE7B7204657830025FC60 /* BetterMaccyUITests */ = {
 			isa = PBXGroup;
 			children = (
-				DA0EE7B8204657830025FC60 /* MaccyUITests.swift */,
+				DA0EE7B8204657830025FC60 /* BetterMaccyUITests.swift */,
 			);
-			path = MaccyUITests;
+			path = BetterMaccyUITests;
 			sourceTree = "<group>";
 		};
 		DA181178247D150B00066D55 /* Settings */ = {
@@ -714,7 +714,7 @@
 			path = Sounds;
 			sourceTree = "<group>";
 		};
-		DA360DB11E3DF137005C6F6B /* MaccyTests */ = {
+		DA360DB11E3DF137005C6F6B /* BetterMaccyTests */ = {
 			isa = PBXGroup;
 			children = (
 				DA48AE852A5F0077006D4894 /* Fixtures */,
@@ -727,7 +727,7 @@
 				DA696BD12401EEE900DE80CF /* SorterTests.swift */,
 				DA360DB41E3DF137005C6F6B /* Info.plist */,
 			);
-			path = MaccyTests;
+			path = BetterMaccyTests;
 			sourceTree = "<group>";
 		};
 		DA3BCB902C3EEC1000B01BC1 /* Observables */ = {
@@ -780,10 +780,10 @@
 		DAEE383A1E3DBEB100DD2966 = {
 			isa = PBXGroup;
 			children = (
-				DAEE38451E3DBEB100DD2966 /* Maccy */,
-				DA360DB11E3DF137005C6F6B /* MaccyTests */,
-				DA0EE7B7204657830025FC60 /* MaccyUITests */,
-				DACCD5822C93605C00BAD74C /* Maccy.xctestplan */,
+				DAEE38451E3DBEB100DD2966 /* BetterMaccy */,
+				DA360DB11E3DF137005C6F6B /* BetterMaccyTests */,
+				DA0EE7B7204657830025FC60 /* BetterMaccyUITests */,
+				DACCD5822C93605C00BAD74C /* BetterMaccy.xctestplan */,
 				DA00992C256411F90030E697 /* appcast.xml */,
 				DA00992F256411F90030E697 /* LICENSE */,
 				DA00992D256411F90030E697 /* README.md */,
@@ -796,13 +796,13 @@
 			isa = PBXGroup;
 			children = (
 				DAEE38431E3DBEB100DD2966 /* BetterMaccy.app */,
-				DA360DB01E3DF137005C6F6B /* MaccyTests.xctest */,
-				DA0EE7B6204657830025FC60 /* MaccyUITests.xctest */,
+				DA360DB01E3DF137005C6F6B /* BetterMaccyTests.xctest */,
+				DA0EE7B6204657830025FC60 /* BetterMaccyUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		DAEE38451E3DBEB100DD2966 /* Maccy */ = {
+		DAEE38451E3DBEB100DD2966 /* BetterMaccy */ = {
 			isa = PBXGroup;
 			children = (
 				2F0EC7802E773F1D003E2EA9 /* PasteStack.swift */,
@@ -828,7 +828,7 @@
 				DABDE97E2974706C005B32E9 /* KeyboardLayout.swift */,
 				DAD665652898A1C000975096 /* KeyChord.swift */,
 				DA19690F2C3F0AAC00258481 /* KeyShortcut.swift */,
-				DA05B5102C234CB1006980FE /* MaccyApp.swift */,
+				DA05B5102C234CB1006980FE /* BetterMaccyApp.swift */,
 				DA689FCB2C1D1D510009B887 /* MenuIcon.swift */,
 				DA20FA712B082DD600056DD5 /* Notifier.swift */,
 				DA689FC72C1D15140009B887 /* PinsPosition.swift */,
@@ -841,20 +841,20 @@
 				DA696BCD240177E800DE80CF /* Sorter.swift */,
 				DA243D132C2F66DD0012A27F /* Storage.swift */,
 				DA81D673252A056B009977BC /* Throttler.swift */,
-				DAB8CE4024E3677F00A2500E /* Maccy.entitlements */,
+				DAB8CE4024E3677F00A2500E /* BetterMaccy.entitlements */,
 				DAEE384D1E3DBEB100DD2966 /* Info.plist */,
 				DA6373971E4AB9BB00263391 /* Assets.xcassets */,
 				4762D6992467226100B3A2BA /* Localizable.strings */,
 			);
-			path = Maccy;
+			path = BetterMaccy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		DA0EE7B5204657830025FC60 /* MaccyUITests */ = {
+		DA0EE7B5204657830025FC60 /* BetterMaccyUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA0EE7BF204657840025FC60 /* Build configuration list for PBXNativeTarget "MaccyUITests" */;
+			buildConfigurationList = DA0EE7BF204657840025FC60 /* Build configuration list for PBXNativeTarget "BetterMaccyUITests" */;
 			buildPhases = (
 				DA0EE7B2204657830025FC60 /* Sources */,
 				DA0EE7B3204657830025FC60 /* Frameworks */,
@@ -865,14 +865,14 @@
 			dependencies = (
 				DA0EE7BC204657840025FC60 /* PBXTargetDependency */,
 			);
-			name = MaccyUITests;
-			productName = MaccyUITests;
-			productReference = DA0EE7B6204657830025FC60 /* MaccyUITests.xctest */;
+			name = BetterMaccyUITests;
+			productName = BetterMaccyUITests;
+			productReference = DA0EE7B6204657830025FC60 /* BetterMaccyUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		DA360DAF1E3DF137005C6F6B /* MaccyTests */ = {
+		DA360DAF1E3DF137005C6F6B /* BetterMaccyTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DA360DB71E3DF137005C6F6B /* Build configuration list for PBXNativeTarget "MaccyTests" */;
+			buildConfigurationList = DA360DB71E3DF137005C6F6B /* Build configuration list for PBXNativeTarget "BetterMaccyTests" */;
 			buildPhases = (
 				DA360DAC1E3DF137005C6F6B /* Sources */,
 				DA360DAD1E3DF137005C6F6B /* Frameworks */,
@@ -883,14 +883,14 @@
 			dependencies = (
 				DA360DB61E3DF137005C6F6B /* PBXTargetDependency */,
 			);
-			name = MaccyTests;
-			productName = MaccyTests;
-			productReference = DA360DB01E3DF137005C6F6B /* MaccyTests.xctest */;
+			name = BetterMaccyTests;
+			productName = BetterMaccyTests;
+			productReference = DA360DB01E3DF137005C6F6B /* BetterMaccyTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DAEE38421E3DBEB100DD2966 /* Maccy */ = {
+		DAEE38421E3DBEB100DD2966 /* BetterMaccy */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = DAEE38501E3DBEB100DD2966 /* Build configuration list for PBXNativeTarget "Maccy" */;
+			buildConfigurationList = DAEE38501E3DBEB100DD2966 /* Build configuration list for PBXNativeTarget "BetterMaccy" */;
 			buildPhases = (
 				DAEE383F1E3DBEB100DD2966 /* Sources */,
 				DAEE38401E3DBEB100DD2966 /* Frameworks */,
@@ -901,7 +901,7 @@
 			);
 			dependencies = (
 			);
-			name = Maccy;
+			name = BetterMaccy;
 			packageProductDependencies = (
 				DA5154D72564102900C01004 /* Sauce */,
 				DA009946256414800030E697 /* SwiftHEXColors */,
@@ -913,7 +913,7 @@
 				DAC0CA3D2C88E7A4003BF498 /* Fuse */,
 				2F12271D2E5C932200A1592A /* Logging */,
 			);
-			productName = Maccy;
+			productName = BetterMaccy;
 			productReference = DAEE38431E3DBEB100DD2966 /* BetterMaccy.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -948,7 +948,7 @@
 					};
 				};
 			};
-			buildConfigurationList = DAEE383E1E3DBEB100DD2966 /* Build configuration list for PBXProject "Maccy" */;
+			buildConfigurationList = DAEE383E1E3DBEB100DD2966 /* Build configuration list for PBXProject "BetterMaccy" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -1001,9 +1001,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				DAEE38421E3DBEB100DD2966 /* Maccy */,
-				DA360DAF1E3DF137005C6F6B /* MaccyTests */,
-				DA0EE7B5204657830025FC60 /* MaccyUITests */,
+				DAEE38421E3DBEB100DD2966 /* BetterMaccy */,
+				DA360DAF1E3DF137005C6F6B /* BetterMaccyTests */,
+				DA0EE7B5204657830025FC60 /* BetterMaccyUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -1052,7 +1052,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DA0EE7B9204657830025FC60 /* MaccyUITests.swift in Sources */,
+				DA0EE7B9204657830025FC60 /* BetterMaccyUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1146,7 +1146,7 @@
 				DA689FCA2C1D18890009B887 /* HighlightMatch.swift in Sources */,
 				DA6491B029ABCF2400837D93 /* NSScreen+ForPopup.swift in Sources */,
 				DA81D674252A056B009977BC /* Throttler.swift in Sources */,
-				DA05B5112C234CB2006980FE /* MaccyApp.swift in Sources */,
+				DA05B5112C234CB2006980FE /* BetterMaccyApp.swift in Sources */,
 				2F0EC77F2E773DBA003E2EA9 /* MultipleSelectionListView.swift in Sources */,
 				2F0EC7892E7743D9003E2EA9 /* HoverSelectionModifier.swift in Sources */,
 				DA13D7DE2C1A436E00FA9E23 /* AppIntentError.swift in Sources */,
@@ -1188,12 +1188,12 @@
 /* Begin PBXTargetDependency section */
 		DA0EE7BC204657840025FC60 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAEE38421E3DBEB100DD2966 /* Maccy */;
+			target = DAEE38421E3DBEB100DD2966 /* BetterMaccy */;
 			targetProxy = DA0EE7BB204657840025FC60 /* PBXContainerItemProxy */;
 		};
 		DA360DB61E3DF137005C6F6B /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = DAEE38421E3DBEB100DD2966 /* Maccy */;
+			target = DAEE38421E3DBEB100DD2966 /* BetterMaccy */;
 			targetProxy = DA360DB51E3DF137005C6F6B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -1518,7 +1518,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MN3X4648SC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MaccyUITests/Info.plist;
+				INFOPLIST_FILE = BetterMaccyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1529,7 +1529,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Maccy;
+				TEST_TARGET_NAME = BetterMaccy;
 			};
 			name = Debug;
 		};
@@ -1545,7 +1545,7 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MN3X4648SC;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = MaccyUITests/Info.plist;
+				INFOPLIST_FILE = BetterMaccyUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1556,7 +1556,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = Maccy;
+				TEST_TARGET_NAME = BetterMaccy;
 			};
 			name = Release;
 		};
@@ -1569,7 +1569,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MN3X4648SC;
-				INFOPLIST_FILE = MaccyTests/Info.plist;
+				INFOPLIST_FILE = BetterMaccyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1593,7 +1593,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = MN3X4648SC;
-				INFOPLIST_FILE = MaccyTests/Info.plist;
+				INFOPLIST_FILE = BetterMaccyTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -1733,7 +1733,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Maccy/Maccy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BetterMaccy/BetterMaccy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1746,7 +1746,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Maccy/Info.plist;
+				INFOPLIST_FILE = BetterMaccy/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1768,7 +1768,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Maccy/Maccy.entitlements;
+				CODE_SIGN_ENTITLEMENTS = BetterMaccy/BetterMaccy.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
@@ -1781,7 +1781,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				INFOPLIST_FILE = Maccy/Info.plist;
+				INFOPLIST_FILE = BetterMaccy/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1799,7 +1799,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		DA0EE7BF204657840025FC60 /* Build configuration list for PBXNativeTarget "MaccyUITests" */ = {
+		DA0EE7BF204657840025FC60 /* Build configuration list for PBXNativeTarget "BetterMaccyUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA0EE7BD204657840025FC60 /* Debug */,
@@ -1808,7 +1808,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		DA360DB71E3DF137005C6F6B /* Build configuration list for PBXNativeTarget "MaccyTests" */ = {
+		DA360DB71E3DF137005C6F6B /* Build configuration list for PBXNativeTarget "BetterMaccyTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DA360DB81E3DF137005C6F6B /* Debug */,
@@ -1817,7 +1817,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		DAEE383E1E3DBEB100DD2966 /* Build configuration list for PBXProject "Maccy" */ = {
+		DAEE383E1E3DBEB100DD2966 /* Build configuration list for PBXProject "BetterMaccy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAEE384E1E3DBEB100DD2966 /* Debug */,
@@ -1826,7 +1826,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		DAEE38501E3DBEB100DD2966 /* Build configuration list for PBXNativeTarget "Maccy" */ = {
+		DAEE38501E3DBEB100DD2966 /* Build configuration list for PBXNativeTarget "BetterMaccy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				DAEE38511E3DBEB100DD2966 /* Debug */,

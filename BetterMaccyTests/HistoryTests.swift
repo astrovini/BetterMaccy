@@ -1,6 +1,6 @@
 import XCTest
 import Defaults
-@testable import Maccy
+@testable import BetterMaccy
 
 @MainActor
 class HistoryTests: XCTestCase {
@@ -66,7 +66,7 @@ class HistoryTests: XCTestCase {
     ]
     let firstItem = HistoryItem()
     Storage.shared.context.insert(firstItem)
-    firstItem.application = "Maccy.app"
+    firstItem.application = "BetterMaccy.app"
     firstItem.contents = firstContents
     firstItem.title = firstItem.generateTitle()
     history.add(firstItem)
@@ -79,7 +79,7 @@ class HistoryTests: XCTestCase {
     ]
     let secondItem = HistoryItem()
     Storage.shared.context.insert(secondItem)
-    secondItem.application = "Maccy.app"
+    secondItem.application = "BetterMaccy.app"
     secondItem.contents = secondContents
     secondItem.title = secondItem.generateTitle()
     let second = history.add(secondItem)
@@ -123,7 +123,7 @@ class HistoryTests: XCTestCase {
     XCTAssertEqual(Set(history.items[0].item.contents), Set(firstContents))
   }
 
-  func testAddingItemFromMaccy() {
+  func testAddingItemFromBetterMaccy() {
     let firstContents = [
       HistoryItemContent(
         type: NSPasteboard.PasteboardType.string.rawValue,
@@ -142,13 +142,13 @@ class HistoryTests: XCTestCase {
         value: "one".data(using: .utf8)
       ),
       HistoryItemContent(
-        type: NSPasteboard.PasteboardType.fromMaccy.rawValue,
+        type: NSPasteboard.PasteboardType.fromBetterMaccy.rawValue,
         value: "".data(using: .utf8)
       )
     ]
     let second = HistoryItem()
     Storage.shared.context.insert(second)
-    second.application = "Maccy.app"
+    second.application = "BetterMaccy.app"
     second.contents = secondContents
     let secondDecorator = history.add(second)
 

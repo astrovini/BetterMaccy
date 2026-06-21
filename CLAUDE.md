@@ -30,18 +30,23 @@ Upstream sync: `git fetch origin && git rebase origin/master && git push --force
 
 ## Gotchas
 
-- `SUFeedURL` in Maccy/Info.plist and `appcast.xml` at the repo root must
+- `SUFeedURL` in BetterMaccy/Info.plist and `appcast.xml` at the repo root must
   always point at the FORK (astrovini/BetterMaccy), never upstream. If an
   upstream rebase restores p0deje values, Sparkle would auto-update users
   back to official Maccy, silently removing the fork's features.
   release.sh regenerates appcast.xml each release; push it after the
   GitHub release exists.
-- Coexistence with official Maccy relies on three things staying distinct:
-  bundle ID `com.astrovini.bettermaccy`, app name `BetterMaccy` (a
-  PRODUCT_NAME override — the Xcode target/scheme is still named "Maccy"),
-  and the clipboard-history path `~/Library/Application Support/BetterMaccy`
-  (hardcoded in Storage.swift). An upstream rebase could revert the storage
-  path to `Maccy/` and make both apps share one history DB — watch for it.
+- The whole project is renamed to BetterMaccy (Xcode project/target/scheme,
+  source folder, Swift module, test targets) — a full divergence from
+  upstream, so `git rebase origin/master` will conflict heavily on
+  project.pbxproj and moved files. That cost was accepted for a clean rebrand.
+- Coexistence with official Maccy relies on these staying distinct from the
+  upstream values an unlucky rebase could restore: bundle ID
+  `com.astrovini.bettermaccy`, the clipboard-history path
+  `~/Library/Application Support/BetterMaccy` (hardcoded in Storage.swift),
+  and the pasteboard "from me" marker `com.astrovini.bettermaccy`
+  (BetterMaccy/Extensions/NSPasteboard.PasteboardType+Types.swift, was
+  `org.p0deje.Maccy`). Revert any of these and the two apps step on each other.
 - macOS binds the Accessibility (paste) grant to bundle ID + code
   signature. The grant on this machine belongs to the Developer ID
   identity (team L228C8LS8X). Dev builds signed with the same identity
@@ -50,6 +55,6 @@ Upstream sync: `git fetch origin && git rebase origin/master && git push --force
   breaks the brew build instead. If TCC gets wedged:
   `tccutil reset Accessibility com.astrovini.bettermaccy`, relaunch, re-grant.
 - The fork's core feature lives in `AppState.select()`
-  (Maccy/Observables/AppState.swift) and `Maccy/Views/HistoryItemView.swift`
+  (BetterMaccy/Observables/AppState.swift) and `BetterMaccy/Views/HistoryItemView.swift`
   (Shift+click). Upstream ships the same multi-select machinery behind a
   disabled `multiSelectionEnabled` flag — rebases may conflict there.

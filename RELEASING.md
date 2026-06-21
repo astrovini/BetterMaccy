@@ -28,7 +28,7 @@ brew install --cask astrovini/tap/bettermaccy
 
 1. Bump `MARKETING_VERSION` (e.g. `2.6.1` → `2.6.2`) AND
    `CURRENT_PROJECT_VERSION` (e.g. `61` → `62`; Sparkle compares this
-   one, so it must increase every release) in `Maccy.xcodeproj` — both
+   one, so it must increase every release) in `BetterMaccy.xcodeproj` — both
    appear twice in project.pbxproj. Commit and push.
 
 2. Build, sign, notarize, staple, and package:
@@ -73,7 +73,7 @@ git rebase origin/master
 git push --force-with-lease
 ```
 
-Then release as above. Watch for upstream changes to `Maccy/Info.plist`
+Then release as above. Watch for upstream changes to `BetterMaccy/Info.plist`
 and `appcast.xml`: `SUFeedURL` must keep pointing at
 `raw.githubusercontent.com/astrovini/BetterMaccy/master/appcast.xml` and
 the appcast must keep listing our releases — if a rebase restores
@@ -88,11 +88,12 @@ silently removing the fork's features. Also watch `AppState.select()` /
   (upstream gates this behind a disabled flag and uses Cmd+click with a
   sequential "paste stack" instead).
 - Default popup shortcut Option+V; "paste automatically" on by default.
-- Bundle ID `com.astrovini.bettermaccy`; app/product name `BetterMaccy`
-  (a PRODUCT_NAME override — the Xcode target is still named "Maccy").
+- Bundle ID `com.astrovini.bettermaccy`; the project is fully renamed to
+  BetterMaccy (Xcode project/target/scheme, source folder, Swift module).
   Clipboard history lives in `~/Library/Application Support/BetterMaccy`
-  (hardcoded in Storage.swift), separate from official Maccy so the two run
-  side-by-side without sharing a history DB.
+  (hardcoded in Storage.swift) and the pasteboard "from me" marker is
+  `com.astrovini.bettermaccy` — both distinct from official Maccy so the two
+  run side-by-side without sharing history or self-ignore state.
 - Sparkle feed points at the fork's own appcast (validated via Apple
   code signing — same Developer ID team — so no EdDSA keys needed);
   automatic checks default to off. Primary update channel is

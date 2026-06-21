@@ -1,6 +1,6 @@
-project: Maccy.xcodeproj
+project: BetterMaccy.xcodeproj
 retain_objc_accessible: true
 schemes:
-- Maccy
+- BetterMaccy
 targets:
-- Maccy
+- BetterMaccy

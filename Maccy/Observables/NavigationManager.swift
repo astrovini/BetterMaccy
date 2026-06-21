@@ -177,6 +177,13 @@ class NavigationManager { // swiftlint:disable:this type_body_length
     footer.selectedItem = item
   }
 
+  // Single mouse click in click-to-select mode: highlight the item (and collapse
+  // any in-progress multi-selection) without activating/pasting it.
+  func selectFromMouseClick(item: HistoryItemDecorator) {
+    isManualMultiSelect = false
+    select(item: item)
+  }
+
   private func selectFromKeyboardNavigation(
     item: HistoryItemDecorator? = nil,
     footerItem: FooterItem? = nil

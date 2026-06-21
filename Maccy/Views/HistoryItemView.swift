@@ -29,10 +29,19 @@ struct HistoryItemView: View {
     }
   }
 
+  @Default(.selectionMode) private var selectionMode
   @Environment(AppState.self) private var appState
 
   var body: some View {
-    ListItemView(
+    listItem
+      .onAppear {
+        item.ensureThumbnailImage()
+      }
+  }
+
+  @ViewBuilder
+  private var listItem: some View {
+    let view = ListItemView(
       id: item.id,
       selectionId: item.id,
       appIcon: item.applicationImage,
@@ -47,21 +56,44 @@ struct HistoryItemView: View {
       showFavoriteToggle: item.isSelected || item.isFavorited,
       onToggleFavorite: {
         Task { appState.history.toggleFavorite(item) }
-      }
+      },
+      hoverToSelect: selectionMode == .hover
     ) {
       Text(verbatim: item.displayTitle)
     }
-    .onAppear {
-      item.ensureThumbnailImage()
-    }
-    .onTapGesture {
-      if NSEvent.modifierFlags.contains(.shift) && appState.multiSelectionEnabled {
-        appState.navigator.addToSelection(item: item)
-      } else {
-        Task {
-          appState.history.select(item)
+
+    switch selectionMode {
+    case .hover:
+      // Hover highlights; a single click pastes.
+      view.onTapGesture {
+        if isMultiSelectClick {
+          appState.navigator.addToSelection(item: item)
+        } else {
+          paste()
+        }
+      }
+    case .click:
+      // A single click highlights; a double click pastes. A single tap gesture
+      // (reading the live click count) is used instead of separate count:1 /
+      // count:2 gestures so the highlight is instant — pairing the two makes
+      // SwiftUI wait out the double-click interval before the single tap fires.
+      view.onTapGesture {
+        if isMultiSelectClick {
+          appState.navigator.addToSelection(item: item)
+        } else if (NSApp.currentEvent?.clickCount ?? 1) >= 2 {
+          paste()
+        } else {
+          appState.navigator.selectFromMouseClick(item: item)
         }
       }
     }
+  }
+
+  private var isMultiSelectClick: Bool {
+    NSEvent.modifierFlags.contains(.shift) && appState.multiSelectionEnabled
+  }
+
+  private func paste() {
+    Task { appState.history.select(item) }
   }
 }

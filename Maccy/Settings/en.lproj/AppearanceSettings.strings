@@ -26,6 +26,10 @@
 "PreviewAutoOpenTooltip" = "Automatically open the preview sidebar after the delay above.\nWhen disabled, the preview only opens when triggered manually.\nDefault: enabled.";
 "KeepPreviewOpen" = "Keep preview open on footer hover";
 "KeepPreviewOpenTooltip" = "Keep a manually-opened preview pinned so you can select and copy text in it.\nWhen enabled, hovering the footer won't dismiss it.\nOnly applies when auto-open is off.\nDefault: enabled.";
+"SelectionMode" = "Select item with:";
+"SelectionModeHover" = "Hover";
+"SelectionModeClick" = "Click";
+"SelectionModeTooltip" = "Choose how the mouse selects items in the history.\nHover: hovering highlights an item, a single click pastes it.\nClick: a single click highlights an item, a double click pastes it.\nKeyboard navigation is unchanged.\nDefault: Hover.";
 "HighlightMatches" = "Highlight matches:";
 "HighlightMatchColor" = "Color";
 "HighlightMatchBold" = "Bold";

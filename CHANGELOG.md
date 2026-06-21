@@ -8,6 +8,17 @@ reverted on an upstream rebase.
 
 ### Added
 
+- **"Select item with" setting** (Settings → Appearance; default "Hover").
+  Chooses how the mouse selects items in the history list. **Hover** (the
+  previous, unchanged behavior): hovering highlights an item and a single click
+  pastes it. **Click**: hovering does nothing, a single click highlights an
+  item, and a double click pastes it — handy if hover-to-select feels too
+  twitchy. Keyboard navigation and Shift+click multi-select are identical in
+  both modes; footer and paste-stack hover are unaffected. The single click
+  reads the live click count (rather than pairing count:1/count:2 tap gestures)
+  so highlighting stays instant instead of waiting out the double-click interval
+  (`SelectionMode.swift`, `HistoryItemView.swift`, `HoverSelectionModifier.swift`,
+  `ListItemView.swift`, `NavigationManager.swift`, `AppearanceSettingsPane.swift`).
 - **Popup width setting** — Settings → Appearance now has a "Popup width" field
   (alongside the existing "Popup height"), so the popup width can be set without
   dragging. The configured size applies the next time the popup opens.

@@ -19,7 +19,6 @@ struct AppearanceSettingsPane: View {
   @Default(.windowPosition) private var windowPosition
   @Default(.windowSize) private var windowSize
   @Default(.showApplicationIcons) private var showApplicationIcons
-  @Default(.selectionMode) private var selectionMode
 
   @State private var screens = NSScreen.screens
 
@@ -167,17 +166,6 @@ struct AppearanceSettingsPane: View {
         }
         .help(Text("KeepPreviewOpenTooltip", tableName: "AppearanceSettings"))
         .disabled(previewAutoOpen)
-      }
-
-      Settings.Section(label: { Text("SelectionMode", tableName: "AppearanceSettings") }) {
-        Picker("", selection: $selectionMode) {
-          ForEach(SelectionMode.allCases) { mode in
-            Text(mode.description)
-          }
-        }
-        .labelsHidden()
-        .frame(width: 141, alignment: .leading)
-        .help(Text("SelectionModeTooltip", tableName: "AppearanceSettings"))
       }
 
       Settings.Section(

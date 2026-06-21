@@ -10,6 +10,7 @@ struct GeneralSettingsPane: View {
   )
 
   @Default(.searchMode) private var searchMode
+  @Default(.selectionMode) private var selectionMode
 
   @State private var copyModifier = HistoryItemAction.copy.modifierFlags.description
   @State private var pasteModifier = HistoryItemAction.paste.modifierFlags.description
@@ -81,6 +82,20 @@ struct GeneralSettingsPane: View {
         }
         .labelsHidden()
         .frame(width: 180, alignment: .leading)
+      }
+
+      Settings.Section(
+        bottomDivider: true,
+        label: { Text("SelectionMode", tableName: "GeneralSettings") }
+      ) {
+        Picker("", selection: $selectionMode) {
+          ForEach(SelectionMode.allCases) { mode in
+            Text(mode.description)
+          }
+        }
+        .labelsHidden()
+        .frame(width: 180, alignment: .leading)
+        .help(Text("SelectionModeTooltip", tableName: "GeneralSettings"))
       }
 
       Settings.Section(

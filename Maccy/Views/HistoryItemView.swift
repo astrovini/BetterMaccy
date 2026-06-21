@@ -29,19 +29,10 @@ struct HistoryItemView: View {
     }
   }
 
-  @Default(.selectionMode) private var selectionMode
   @Environment(AppState.self) private var appState
 
   var body: some View {
-    listItem
-      .onAppear {
-        item.ensureThumbnailImage()
-      }
-  }
-
-  @ViewBuilder
-  private var listItem: some View {
-    let view = ListItemView(
+    ListItemView(
       id: item.id,
       selectionId: item.id,
       appIcon: item.applicationImage,
@@ -57,43 +48,32 @@ struct HistoryItemView: View {
       onToggleFavorite: {
         Task { appState.history.toggleFavorite(item) }
       },
-      hoverToSelect: selectionMode == .hover
+      respectsSelectionMode: true
     ) {
       Text(verbatim: item.displayTitle)
     }
-
-    switch selectionMode {
-    case .hover:
-      // Hover highlights; a single click pastes.
-      view.onTapGesture {
-        if isMultiSelectClick {
-          appState.navigator.addToSelection(item: item)
-        } else {
-          paste()
-        }
-      }
-    case .click:
-      // A single click highlights; a double click pastes. A single tap gesture
-      // (reading the live click count) is used instead of separate count:1 /
-      // count:2 gestures so the highlight is instant — pairing the two makes
-      // SwiftUI wait out the double-click interval before the single tap fires.
-      view.onTapGesture {
-        if isMultiSelectClick {
-          appState.navigator.addToSelection(item: item)
-        } else if (NSApp.currentEvent?.clickCount ?? 1) >= 2 {
-          paste()
-        } else {
-          appState.navigator.selectFromMouseClick(item: item)
-        }
-      }
+    .onAppear {
+      item.ensureThumbnailImage()
+    }
+    .onTapGesture {
+      handleTap()
     }
   }
 
-  private var isMultiSelectClick: Bool {
-    NSEvent.modifierFlags.contains(.shift) && appState.multiSelectionEnabled
-  }
-
-  private func paste() {
-    Task { appState.history.select(item) }
+  // One tap gesture covers both modes, reading the live mode from the cached
+  // navigator flag so a setting change applies instantly. A single gesture
+  // (rather than paired count:1/count:2) keeps the click instant — pairing them
+  // makes SwiftUI wait out the double-click interval before selecting.
+  private func handleTap() {
+    if NSEvent.modifierFlags.contains(.shift) && appState.multiSelectionEnabled {
+      appState.navigator.addToSelection(item: item)
+    } else if appState.navigator.selectionMode == .click
+                && (NSApp.currentEvent?.clickCount ?? 1) < 2 {
+      // Click mode, single click: highlight only.
+      appState.navigator.selectFromMouseClick(item: item)
+    } else {
+      // Hover mode (single click) or click mode (double click): paste.
+      Task { appState.history.select(item) }
+    }
   }
 }

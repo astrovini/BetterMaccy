@@ -14,9 +14,9 @@ enum SelectionMode: String, CaseIterable, Identifiable, CustomStringConvertible,
   var description: String {
     switch self {
     case .hover:
-      return NSLocalizedString("SelectionModeHover", tableName: "AppearanceSettings", comment: "")
+      return NSLocalizedString("SelectionModeHover", tableName: "GeneralSettings", comment: "")
     case .click:
-      return NSLocalizedString("SelectionModeClick", tableName: "AppearanceSettings", comment: "")
+      return NSLocalizedString("SelectionModeClick", tableName: "GeneralSettings", comment: "")
     }
   }
 }

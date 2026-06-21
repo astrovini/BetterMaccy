@@ -43,8 +43,9 @@ struct ListItemView<Title: View, ID: Hashable>: View {
   var isFavorited: Bool = false
   var showFavoriteToggle: Bool = false
   var onToggleFavorite: (() -> Void)?
-  // When false (click-to-select mode for history items), hovering doesn't select.
-  var hoverToSelect: Bool = true
+  // History rows pass true so hover-select obeys the selection-mode setting;
+  // footer / paste-stack rows keep the default and always hover-select.
+  var respectsSelectionMode: Bool = false
   @ViewBuilder var title: () -> Title
 
   @Default(.showApplicationIcons) private var showIcons
@@ -134,7 +135,7 @@ struct ListItemView<Title: View, ID: Hashable>: View {
     // The slight opcaity white background is a workaround
     .background(isSelected ? Color.accentColor.opacity(0.8) : .white.opacity(0.001))
     .clipShape(selectionAppearance.rect(cornerRadius: Popup.cornerRadius))
-    .hoverSelectionId(selectionId, enabled: hoverToSelect)
+    .hoverSelectionId(selectionId, respectsSelectionMode: respectsSelectionMode)
     .help(help ?? "")
   }
 }

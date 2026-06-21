@@ -14,6 +14,10 @@
 "PasteAutomatically" = "Paste automatically";
 "PasteWithoutFormatting" = "Paste without formatting";
 "Modifiers" = "Customize the behavior when selecting item:\n• Select with %@ pressed to copy item.\n• Select with %@ pressed to copy and paste item.\n• Select with %@ pressed to copy, clear formatting, and paste item.";
+"SelectionMode" = "Select item with:";
+"SelectionModeHover" = "Hover";
+"SelectionModeClick" = "Click";
+"SelectionModeTooltip" = "Choose how the mouse selects items in the history.\nHover: hovering highlights an item, a single click pastes it.\nClick: a single click highlights an item, a double click pastes it.\nKeyboard navigation is unchanged.\nDefault: Hover.";
 "Search" = "Search:";
 "Exact" = "Exact";
 "Fuzzy" = "Fuzzy";

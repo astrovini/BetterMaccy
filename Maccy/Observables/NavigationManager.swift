@@ -1,3 +1,4 @@
+import Defaults
 import Foundation
 import SwiftUI
 
@@ -6,9 +7,21 @@ class NavigationManager { // swiftlint:disable:this type_body_length
   private var history: History
   private var footer: Footer
 
+  // Cached mirror of `Defaults[.selectionMode]`, refreshed only when the
+  // setting changes. Hover/click handlers read this (a free in-memory access)
+  // instead of hitting UserDefaults on every event, and because it's shared
+  // state a change applies immediately without re-rendering each list row.
+  var selectionMode: SelectionMode = Defaults[.selectionMode]
+
   init(history: History, footer: Footer) {
     self.history = history
     self.footer = footer
+
+    Task { @MainActor [weak self] in
+      for await value in Defaults.updates(.selectionMode, initial: false) {
+        self?.selectionMode = value
+      }
+    }
   }
 
   var selection: Selection<HistoryItemDecorator> = Selection() {

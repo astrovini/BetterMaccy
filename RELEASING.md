@@ -16,7 +16,11 @@ brew install --cask astrovini/tap/maccycustom
   `AuthKey_*.p8` file — keep it somewhere safe; it can't be re-downloaded).
   Recreate with:
   `xcrun notarytool store-credentials maccy-notary --key <path>.p8 --key-id <id> --issuer <issuer-uuid>`
-- **`gh` CLI** authenticated as `astrovini`.
+- **`gh` CLI** authenticated as `astrovini`, with the default repo set to the
+  fork: `gh repo set-default astrovini/MaccyCustom`. This clone's `origin`
+  points at upstream (p0deje/Maccy), so without a default, bare `gh` commands
+  (including `gh release create` below) resolve to **upstream** — they fail or
+  report the wrong releases. Pass `-R p0deje/Maccy` for the rare upstream query.
 - The Homebrew tap repo: <https://github.com/astrovini/homebrew-tap>,
   local clone at `~/Documents/Projects/homebrew-tap`.
 

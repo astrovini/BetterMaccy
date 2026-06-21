@@ -18,8 +18,8 @@ Maccy works on macOS Sonoma 14 or higher.
 > - **Shift+↑/↓** to extend the selection via keyboard
 > - Press **Enter** to paste all selected items joined by `\n`
 >
-> Install: `brew install --cask astrovini/tap/maccycustom`
-> (or download from [releases](https://github.com/astrovini/MaccyCustom/releases) — signed and notarized).
+> Install: `brew install --cask astrovini/tap/bettermaccy`
+> (or download from [releases](https://github.com/astrovini/BetterMaccy/releases) — signed and notarized).
 > Maintainers: see [RELEASING.md](RELEASING.md).
 
 <!-- vim-markdown-toc GFM -->
@@ -53,10 +53,10 @@ Maccy works on macOS Sonoma 14 or higher.
 
 ## Install
 
-Download the latest version from the [releases](https://github.com/astrovini/MaccyCustom/releases/latest) page, or use [Homebrew](https://brew.sh/):
+Download the latest version from the [releases](https://github.com/astrovini/BetterMaccy/releases/latest) page, or use [Homebrew](https://brew.sh/):
 
 ```sh
-brew install --cask astrovini/tap/maccycustom
+brew install --cask astrovini/tap/bettermaccy
 ```
 
 ## Usage
@@ -81,7 +81,7 @@ brew install --cask astrovini/tap/maccycustom
 You can tell Maccy to ignore all copied items:
 
 ```sh
-defaults write com.astrovini.maccy ignoreEvents true # default is false
+defaults write com.astrovini.bettermaccy ignoreEvents true # default is false
 ```
 
 This is useful if you have some workflow for copying sensitive data. You can set `ignoreEvents` to true, copy the data and set `ignoreEvents` back to false.
@@ -119,7 +119,7 @@ By default, Maccy checks clipboard every 500 ms, which should be enough for most
 to speed it up, you can change it with `defaults`:
 
 ```sh
-defaults write com.astrovini.maccy clipboardCheckInterval 0.1 # 100 ms
+defaults write com.astrovini.bettermaccy clipboardCheckInterval 0.1 # 100 ms
 ```
 
 ## FAQ
@@ -127,7 +127,7 @@ defaults write com.astrovini.maccy clipboardCheckInterval 0.1 # 100 ms
 ### Why doesn't it paste when I select an item in history?
 
 1. Make sure you have "Paste automatically" enabled in Preferences (enabled by default in this fork).
-2. Make sure "Maccy" is added to System Settings -> Privacy & Security -> Accessibility.
+2. Make sure "BetterMaccy" is added to System Settings -> Privacy & Security -> Accessibility.
 
 ### When assigning a hotkey to open Maccy, it says that this hotkey is already used in some system setting.
 
@@ -146,7 +146,7 @@ defaults write com.astrovini.maccy clipboardCheckInterval 0.1 # 100 ms
 If for some reason it doesn't work, run the following command in Terminal.app:
 
 ```sh
-defaults write com.astrovini.maccy showFooter 1
+defaults write com.astrovini.bettermaccy showFooter 1
 ```
 
 ### How to ignore copies from [Universal Clipboard](https://support.apple.com/en-us/102430)?

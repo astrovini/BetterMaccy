@@ -1,13 +1,13 @@
 #!/bin/bash
 set -euo pipefail
 
-# Builds, signs, notarizes, and packages Maccy for distribution.
+# Builds, signs, notarizes, and packages BetterMaccy for distribution.
 #
 # Prerequisites:
 #   - "Developer ID Application" certificate in the keychain
 #   - notarytool keychain profile: xcrun notarytool store-credentials maccy-notary ...
 #
-# Output: dist/Maccy-<version>.zip (notarized and stapled) and its sha256.
+# Output: dist/BetterMaccy-<version>.zip (notarized and stapled) and its sha256.
 
 cd "$(dirname "$0")/.."
 
@@ -20,7 +20,7 @@ VERSION=$(xcodebuild -project Maccy.xcodeproj -showBuildSettings -configuration 
   | awk '/MARKETING_VERSION/ { print $3; exit }')
 BUILD=$(xcodebuild -project Maccy.xcodeproj -showBuildSettings -configuration Release 2>/dev/null \
   | awk '/CURRENT_PROJECT_VERSION/ { print $3; exit }')
-echo "==> Building Maccy $VERSION ($BUILD)"
+echo "==> Building BetterMaccy $VERSION ($BUILD)"
 
 rm -rf "$OUT"
 mkdir -p "$OUT"
@@ -33,7 +33,7 @@ xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
   OTHER_CODE_SIGN_FLAGS="--timestamp" \
   build
 
-APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name Maccy.app | head -1)
+APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name BetterMaccy.app | head -1)
 cp -R "$APP" "$OUT/"
 
 # Xcode does not re-sign the executables nested inside the prebuilt Sparkle
@@ -41,7 +41,7 @@ cp -R "$APP" "$OUT/"
 # Re-sign them inside-out, then the framework, then the app (whose seal the
 # nested re-signing invalidates).
 echo "==> Re-signing Sparkle nested binaries"
-SPARKLE="$OUT/Maccy.app/Contents/Frameworks/Sparkle.framework"
+SPARKLE="$OUT/BetterMaccy.app/Contents/Frameworks/Sparkle.framework"
 resign() {
   codesign --force --options runtime --timestamp --preserve-metadata=entitlements \
     --sign "$IDENTITY" "$1"
@@ -51,23 +51,23 @@ resign "$SPARKLE/Versions/B/XPCServices/Installer.xpc"
 resign "$SPARKLE/Versions/B/Autoupdate"
 resign "$SPARKLE/Versions/B/Updater.app"
 resign "$SPARKLE"
-resign "$OUT/Maccy.app"
+resign "$OUT/BetterMaccy.app"
 
 echo "==> Verifying signature"
-codesign --verify --deep --strict "$OUT/Maccy.app"
+codesign --verify --deep --strict "$OUT/BetterMaccy.app"
 
-ZIP="$OUT/Maccy-$VERSION.zip"
-ditto -c -k --keepParent "$OUT/Maccy.app" "$ZIP"
+ZIP="$OUT/BetterMaccy-$VERSION.zip"
+ditto -c -k --keepParent "$OUT/BetterMaccy.app" "$ZIP"
 
 echo "==> Notarizing (takes a few minutes)"
 xcrun notarytool submit "$ZIP" --keychain-profile "$PROFILE" --wait
 
 echo "==> Stapling notarization ticket"
-xcrun stapler staple "$OUT/Maccy.app"
+xcrun stapler staple "$OUT/BetterMaccy.app"
 
 # Re-zip so the published archive contains the stapled app
 rm "$ZIP"
-ditto -c -k --keepParent "$OUT/Maccy.app" "$ZIP"
+ditto -c -k --keepParent "$OUT/BetterMaccy.app" "$ZIP"
 
 # Regenerate the Sparkle appcast (single latest item). Sparkle validates
 # updates via Apple code signing (same Developer ID team), so no EdDSA
@@ -78,17 +78,17 @@ cat > appcast.xml <<APPCAST
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle">
   <channel>
-    <title>MaccyCustom</title>
-    <link>https://github.com/astrovini/MaccyCustom</link>
+    <title>BetterMaccy</title>
+    <link>https://github.com/astrovini/BetterMaccy</link>
     <item>
       <title>$VERSION</title>
       <pubDate>$(date -R)</pubDate>
       <sparkle:version>$BUILD</sparkle:version>
       <sparkle:shortVersionString>$VERSION</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-      <link>https://github.com/astrovini/MaccyCustom/releases/tag/v$VERSION</link>
+      <link>https://github.com/astrovini/BetterMaccy/releases/tag/v$VERSION</link>
       <enclosure
-        url="https://github.com/astrovini/MaccyCustom/releases/download/v$VERSION/Maccy-$VERSION.zip"
+        url="https://github.com/astrovini/BetterMaccy/releases/download/v$VERSION/BetterMaccy-$VERSION.zip"
         length="$(stat -f %z "$ZIP")"
         type="application/octet-stream"/>
     </item>

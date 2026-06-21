@@ -1,6 +1,6 @@
 # Changelog
 
-Notable changes to MaccyCustom (a fork of [Maccy](https://github.com/p0deje/Maccy)).
+Notable changes to BetterMaccy (a fork of [Maccy](https://github.com/p0deje/Maccy)).
 Some fixes here patch pre-existing upstream behavior, so watch for them being
 reverted on an upstream rebase.
 

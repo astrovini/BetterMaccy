@@ -35,6 +35,6 @@
 	<key>SUEnableAutomaticChecks</key>
 	<false/>
 	<key>SUFeedURL</key>
-	<string>https://raw.githubusercontent.com/astrovini/MaccyCustom/master/appcast.xml</string>
+	<string>https://raw.githubusercontent.com/astrovini/BetterMaccy/master/appcast.xml</string>
 </dict>
 </plist>

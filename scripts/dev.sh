@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Builds and runs a local dev build of Maccy.
+# Builds and runs a local dev build of BetterMaccy.
 #
 # Signs with the same Developer ID identity as distribution builds so the
 # macOS Accessibility grant (required for paste) carries over — ad-hoc
@@ -20,7 +20,7 @@ xcodebuild -project Maccy.xcodeproj -scheme Maccy -configuration Release \
   SWIFT_ACTIVE_COMPILATION_CONDITIONS='$(inherited) DEV_BUILD' \
   CODE_SIGN_IDENTITY="-" CODE_SIGNING_REQUIRED=YES build
 
-APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name Maccy.app | head -1)
+APP=$(find ~/Library/Developer/Xcode/DerivedData/Maccy-*/Build/Products/Release -maxdepth 1 -name BetterMaccy.app | head -1)
 
 SPARKLE="$APP/Contents/Frameworks/Sparkle.framework"
 for target in \
@@ -35,7 +35,7 @@ done
 
 codesign --verify --deep --strict "$APP"
 
-pkill -x Maccy 2>/dev/null && sleep 1 || true
+pkill -x BetterMaccy 2>/dev/null && sleep 1 || true
 open "$APP"
 echo "Running dev build: $APP"
-echo "Switch back with: pkill -x Maccy && open /Applications/Maccy.app"
+echo "Switch back with: pkill -x BetterMaccy && open /Applications/BetterMaccy.app"

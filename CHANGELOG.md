@@ -14,11 +14,14 @@ reverted on an upstream rebase.
   pastes it. **Click**: hovering does nothing, a single click highlights an
   item, and a double click pastes it — handy if hover-to-select feels too
   twitchy. Keyboard navigation and Shift+click multi-select are identical in
-  both modes; footer and paste-stack hover are unaffected. The single click
-  reads the live click count (rather than pairing count:1/count:2 tap gestures)
-  so highlighting stays instant instead of waiting out the double-click interval
-  (`SelectionMode.swift`, `HistoryItemView.swift`, `HoverSelectionModifier.swift`,
-  `ListItemView.swift`, `NavigationManager.swift`, `GeneralSettingsPane.swift`).
+  both modes. In Click mode, hovering a footer item (Clear, Quit, …) still
+  highlights it but no longer clears the click-selected history item, so both
+  stay highlighted. The single click reads the live click count (rather than
+  pairing count:1/count:2 tap gestures) so highlighting stays instant instead of
+  waiting out the double-click interval, and changing the setting applies
+  immediately without restarting (`SelectionMode.swift`, `HistoryItemView.swift`,
+  `HoverSelectionModifier.swift`, `ListItemView.swift`, `FooterItemView.swift`,
+  `NavigationManager.swift`, `GeneralSettingsPane.swift`).
 - **Popup width setting** — Settings → Appearance now has a "Popup width" field
   (alongside the existing "Popup height"), so the popup width can be set without
   dragging. The configured size applies the next time the popup opens.

@@ -34,6 +34,20 @@ reverted on an upstream rebase.
   (`KeyboardShortcuts.Name+Shortcuts.swift`).
 ### Fixed
 
+- **Severe hover/scroll lag with large clipboard items.** Hovering over a very
+  large item (e.g. a copied log file with thousands of lines) caused the entire
+  popup to stall. Three compounding issues all fired on every hover event: (1)
+  `PreviewItemView` was always in the view hierarchy and re-rendered
+  `item.text` (up to 10k chars via CoreText) even when the preview pane was
+  completely closed; (2) `String.shortened(to:)` called `.count` first, which
+  walked the entire string O(n) before truncating — for a 1 MB item that was
+  ~1.25 M character walks per hover; (3) `HistoryItemDecorator.text` was a
+  computed property repeating that work on every render. Fixed by: not rendering
+  the slideout content when closed (`SlideoutView.swift`), fixing the
+  `shortened(to:)` algorithm to O(maxLength) via `index(_:offsetBy:limitedBy:)`
+  (`String+Shortened.swift`), and caching `text` on `HistoryItemDecorator` at
+  init time.
+
 - **Clicking the preview text jumped the selection to the first entry.** The
   first click in the now-selectable preview pane pulled focus from the search
   field, which made SwiftUI write the search `Binding` back with its unchanged

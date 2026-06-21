@@ -16,6 +16,7 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
   let id = UUID()
 
   var title: String = ""
+  var displayTitle: String = ""
   var attributedTitle: AttributedString?
 
   var isVisible: Bool = true
@@ -48,7 +49,7 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
   var applicationImage: ApplicationImage
 
   // 10k characters seems to be more than enough on large displays
-  var text: String { item.previewableText.shortened(to: 10_000) }
+  var text: String
 
   var isPinned: Bool { item.pin != nil }
   var isUnpinned: Bool { item.pin == nil }
@@ -68,6 +69,8 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     self.item = item
     self.shortcuts = shortcuts
     self.title = item.title
+    self.displayTitle = item.title.shortened(to: 150)
+    self.text = item.previewableText.shortened(to: 10_000)
     self.isFavorited = item.favorite
     self.applicationImage = ApplicationImageCache.shared.getImage(item: item)
 
@@ -223,6 +226,7 @@ class HistoryItemDecorator: Identifiable, Hashable, HasVisibility {
     } onChange: {
       DispatchQueue.main.async {
         self.title = self.item.title
+        self.displayTitle = self.item.title.shortened(to: 150)
         self.synchronizeItemTitle()
       }
     }

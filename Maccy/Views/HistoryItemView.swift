@@ -49,7 +49,7 @@ struct HistoryItemView: View {
         Task { appState.history.toggleFavorite(item) }
       }
     ) {
-      Text(verbatim: item.title)
+      Text(verbatim: item.displayTitle)
     }
     .onAppear {
       item.ensureThumbnailImage()

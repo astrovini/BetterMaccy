@@ -116,18 +116,20 @@ where Content: View, Slideout: View {
       resizeDivider()
 
       VStack(spacing: 0) {
-        slideout()
-          .frame(
-            minWidth: controller.minimumSlideoutWidth,
-            idealWidth: !isSlideoutResizing ? controller.slideoutWidth.rounded() : nil,
-            maxWidth: !isSlideoutResizing ? controller.slideoutWidth.rounded() : nil,
-            alignment: .leading
-          )
-          .conditionalWidth(
-            controller.slideoutWidth.rounded(),
-            condition: isAnimating
-          )
-          .transition(.identity)
+        if controller.state != .closed {
+          slideout()
+            .frame(
+              minWidth: controller.minimumSlideoutWidth,
+              idealWidth: !isSlideoutResizing ? controller.slideoutWidth.rounded() : nil,
+              maxWidth: !isSlideoutResizing ? controller.slideoutWidth.rounded() : nil,
+              alignment: .leading
+            )
+            .conditionalWidth(
+              controller.slideoutWidth.rounded(),
+              condition: isAnimating
+            )
+            .transition(.identity)
+        }
       }
       .environment(\.layoutDirection, .leftToRight)
       .fixedSize(
@@ -143,8 +145,11 @@ where Content: View, Slideout: View {
       // and overflows this zero-width clipped frame. On macOS 26 that clipped
       // overflow still receives hit-testing, so an invisible preview pane sits
       // over the right side of the list and swallows mouse hover. Disable
-      // hit-testing while closed so the rows underneath stay interactive.
-      .allowsHitTesting(controller.state != .closed)
+      // hit-testing while closed or closing — the preview is either gone or
+      // disappearing, and if the NSAnimationContext completion handler fails to
+      // fire (a macOS 26 regression), the state can get stuck at .closing with
+      // hit-testing still on, permanently swallowing fast mouse/scroll events.
+      .allowsHitTesting(controller.state.isOpen)
       .readWidth(controller, into: \.slideoutResizeWidth)
     }
     .environment(\.layoutDirection, leftToRight ? .leftToRight : .rightToLeft)

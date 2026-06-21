@@ -84,17 +84,18 @@ struct ListItemView<Title: View, ID: Hashable>: View {
       Spacer()
 
       HStack(spacing: 5) {
-        if showFavoriteToggle, let onToggleFavorite {
+        if let onToggleFavorite {
           Button(action: onToggleFavorite) {
             Image(systemName: isFavorited ? "star.fill" : "star")
-              .foregroundStyle(
-                isFavorited
-                  ? Color.yellow
-                  : (isSelected ? Color.white : Color.secondary)
-              )
+              .foregroundStyle(isFavorited ? Color.yellow : Color.white)
           }
           .buttonStyle(.plain)
           .help(isFavorited ? "Remove from Favorites" : "Add to Favorites")
+          // Keep the button in the layout at all times so the HStack width
+          // never changes on hover — changing width busts the scroll view's
+          // size cache and forces full CoreText re-layout of every visible item.
+          .opacity(showFavoriteToggle ? 1 : 0)
+          .allowsHitTesting(showFavoriteToggle)
         }
 
         if let index = selectionIndex {
@@ -122,10 +123,11 @@ struct ListItemView<Title: View, ID: Hashable>: View {
       }
       .padding(.trailing, 10)
     }
+    .frame(height: image == nil ? Popup.itemHeight : nil)
     .frame(minHeight: Popup.itemHeight)
     .id(id)
     .frame(maxWidth: .infinity, alignment: .leading)
-    .foregroundStyle(isSelected ? Color.white : .primary)
+    .foregroundStyle(.primary)
     // macOS 26 broke hovering if no background is present.
     // The slight opcaity white background is a workaround
     .background(isSelected ? Color.accentColor.opacity(0.8) : .white.opacity(0.001))

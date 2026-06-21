@@ -1,25 +1,41 @@
 
-<img width="128px" src="https://maccy.app/img/maccy/Logo.png" alt="Logo" />
+<img width="128px" src="docs/logo.png" alt="BetterMaccy" />
 
 # [BetterMaccy](https://github.com/astrovini/BetterMaccy)
 
 [![Downloads](https://img.shields.io/github/downloads/astrovini/BetterMaccy/total.svg)](https://github.com/astrovini/BetterMaccy/releases/latest)
 
-BetterMaccy is a lightweight clipboard manager for macOS. It keeps the history of what you copy
-and lets you quickly navigate, search, and use previous clipboard contents.
+**BetterMaccy is my improved fork of [Maccy](https://github.com/p0deje/Maccy)** — the
+lightweight macOS clipboard manager — with the features I kept wishing it had. It
+installs and runs **alongside** official Maccy, so you can try it without giving up your
+current setup. Requires macOS Sonoma 14 or higher.
 
-BetterMaccy works on macOS Sonoma 14 or higher.
+### What BetterMaccy adds over Maccy
 
-> This is a personal fork of [Maccy](https://github.com/p0deje/Maccy) with multi-select paste enabled:
-> select multiple history items and paste them all at once as a single block joined by newlines.
->
-> - **Shift+click** an item to add it to the selection
-> - **Shift+↑/↓** to extend the selection via keyboard
-> - Press **Enter** to paste all selected items joined by `\n`
->
-> Install: `brew install --cask astrovini/tap/bettermaccy`
-> (or download from [releases](https://github.com/astrovini/BetterMaccy/releases) — signed and notarized).
-> Maintainers: see [RELEASING.md](RELEASING.md).
+- **Multi-select paste** — pick several history items (**Shift+click**, or **Shift+↑/↓**
+  from the keyboard) and press **Enter** to paste them all at once as one block, joined
+  by newlines.
+- **`Option+V` default shortcut** with **"paste automatically" on by default** — hit
+  Enter and it pastes straight into the app you were just in.
+- **"Select item with" mode** (Settings → General) — choose **Hover** (hover highlights,
+  one click pastes) or **Click** (one click highlights, double click pastes) when
+  hover-to-select feels too twitchy.
+- **No hover/scroll lag on huge items** — copying a massive log no longer stalls the
+  popup.
+- **Coexists with official Maccy** — its own bundle id and clipboard history, a green app
+  icon, and a downward-feather menu bar glyph, so the two never collide.
+
+Install (signed & notarized):
+
+```sh
+brew install --cask astrovini/tap/bettermaccy
+```
+
+Or download from [Releases](https://github.com/astrovini/BetterMaccy/releases/latest). Maintainers: see [RELEASING.md](RELEASING.md).
+
+---
+
+The rest of this README is Maccy's original documentation, adapted for BetterMaccy.
 
 <!-- vim-markdown-toc GFM -->
 

@@ -4,6 +4,21 @@ Notable changes to BetterMaccy (a fork of [Maccy](https://github.com/p0deje/Macc
 Some fixes here patch pre-existing upstream behavior, so watch for them being
 reverted on an upstream rebase.
 
+## [2.8.1] — 2026-06-21
+
+### Changed
+
+- **Rebranded from MaccyCustom to BetterMaccy.** New app/product name, bundle
+  id (`com.astrovini.bettermaccy`), repo (`astrovini/BetterMaccy`), and Homebrew
+  cask (`bettermaccy`). The project was renamed internally as well (Xcode
+  project/target/scheme, Swift module, source and test folders). BetterMaccy now
+  **installs and runs alongside official Maccy**: distinct bundle id, its own
+  clipboard history (separate sandbox container), and its own "from me"
+  pasteboard marker (was `org.p0deje.Maccy`) so the two don't cross-trigger each
+  other's self-ignore logic. Distinct branding too — a green app icon and a
+  downward-feather menu bar glyph (the Maccy glyph flipped vertically). The
+  cask's `conflicts_with maccy` was dropped to allow side-by-side installs.
+
 ## [2.8.0] — 2026-06-21
 
 ### Added

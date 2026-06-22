@@ -28,6 +28,25 @@ Upstream sync: `git fetch origin && git rebase origin/master && git push --force
   ~/Documents/Projects/homebrew-tap). Users install via
   `brew install --cask astrovini/tap/bettermaccy`.
 
+## Testing
+
+macOS has no simulator — the Mac is the runtime. For logic changes prefer
+fast, headless unit tests over `scripts/dev.sh` (no signing dance, no
+Accessibility grant, no launching the brew copy):
+
+- Run one test: `xcodebuild test -scheme BetterMaccy -destination 'platform=macOS' -only-testing:BetterMaccyTests/<Class>/<method>` (drop `-only-testing` for the whole suite). Takes ~30-60s incl. build; the test itself is milliseconds.
+- The BetterMaccyTests/UITests targets are HOSTED in BetterMaccy.app, so a run
+  launches the app briefly. With the project's `DEVELOPMENT_TEAM` (L228C8LS8X)
+  + the Apple Development cert it launches with no Gatekeeper prompt.
+- The test plan passes the `enable-testing` launch arg, so Storage.swift uses
+  an in-memory store — tests do NOT touch the real history DB.
+- Do NOT pass `CODE_SIGN_IDENTITY="-"` or `CODE_SIGNING_ALLOWED=NO`: the hosted
+  test bundle then fails to inject and the run silently executes 0 tests (a
+  false green), or Gatekeeper blocks the ad-hoc host.
+- `BetterMaccy.xctestplan` skips most of `HistoryTests` (inherited from
+  upstream). New HistoryTests methods still run because only the class-level
+  skip was removed; the originally-listed methods stay individually skipped.
+
 ## Gotchas
 
 - `SUFeedURL` in BetterMaccy/Info.plist and `appcast.xml` at the repo root must

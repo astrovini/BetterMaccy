@@ -4,15 +4,15 @@
     <title>BetterMaccy</title>
     <link>https://github.com/astrovini/BetterMaccy</link>
     <item>
-      <title>2.8.1</title>
-      <pubDate>Sun, 21 Jun 2026 13:54:05 -0600</pubDate>
-      <sparkle:version>66</sparkle:version>
-      <sparkle:shortVersionString>2.8.1</sparkle:shortVersionString>
+      <title>2.8.2</title>
+      <pubDate>Mon, 22 Jun 2026 09:30:21 -0600</pubDate>
+      <sparkle:version>67</sparkle:version>
+      <sparkle:shortVersionString>2.8.2</sparkle:shortVersionString>
       <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
-      <link>https://github.com/astrovini/BetterMaccy/releases/tag/v2.8.1</link>
+      <link>https://github.com/astrovini/BetterMaccy/releases/tag/v2.8.2</link>
       <enclosure
-        url="https://github.com/astrovini/BetterMaccy/releases/download/v2.8.1/BetterMaccy-2.8.1.zip"
-        length="3741989"
+        url="https://github.com/astrovini/BetterMaccy/releases/download/v2.8.2/BetterMaccy-2.8.2.zip"
+        length="3741815"
         type="application/octet-stream"/>
     </item>
   </channel>

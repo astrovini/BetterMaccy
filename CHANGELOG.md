@@ -4,6 +4,26 @@ Notable changes to BetterMaccy (a fork of [Maccy](https://github.com/p0deje/Macc
 Some fixes here patch pre-existing upstream behavior, so watch for them being
 reverted on an upstream rebase.
 
+## [2.8.2] — 2026-06-22
+
+### Fixed
+
+- **Fixed a whole-app freeze when the list scrolls during an Option+V cycle.**
+  Holding Option and tapping V to move down a history list long enough to
+  scroll — with the cursor resting over the list — could peg the CPU and lock
+  up the entire popup, forcing a quit from Activity Monitor. Hover selection
+  now updates outside SwiftUI's layout pass, so rows scrolling under a
+  stationary cursor no longer trigger a runaway layout loop
+  (`HoverSelectionModifier.swift`).
+
+- **Option+V cycling no longer falls into the footer.** Holding Option and
+  tapping V to move down the history list used to descend past the last item
+  into the footer and then loop there indefinitely (the cycle's wrap-to-top
+  path was dead code), so releasing Option could fire a footer action —
+  including destructive ones like Clear or Clear All. The held-hotkey cycle now
+  wraps back to the top of the list and never enters the footer; arrow-key Down
+  still reaches the footer as before (`NavigationManager.swift`).
+
 ## [2.8.1] — 2026-06-21
 
 ### Changed

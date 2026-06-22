@@ -80,5 +80,9 @@ class Footer: ItemsContainer {
         AppState.shared.quit()
       }
     ]
+
+    // Start `clear_all` hidden to match its opacity-0 slot, so arrow-key
+    // navigation skips it until a held modifier reveals it.
+    items[1].isVisible = false
   }
 }

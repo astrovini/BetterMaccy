@@ -4,6 +4,23 @@ Notable changes to BetterMaccy (a fork of [Maccy](https://github.com/p0deje/Macc
 Some fixes here patch pre-existing upstream behavior, so watch for them being
 reverted on an upstream rebase.
 
+## [2.8.3] — 2026-06-22
+
+### Fixed
+
+- **Arrow-key navigation no longer snags on the hidden "Clear all" footer
+  item.** The footer's "Clear" and "Clear all" actions share a single slot;
+  "Clear all" is drawn invisibly (opacity 0) and only appears while you hold the
+  modifier that reveals it (Shift). On a fresh launch its `isVisible` flag was
+  left `true` even though it was off-screen, so pressing Down on "Clear" moved
+  the highlight onto the invisible "Clear all" — the selection appeared to
+  vanish — and a second Down was needed to reach "Preferences"; the glitch
+  recurred each time the cursor cycled back to "Clear". Pressing any modifier
+  key (e.g. Control) silently reconciled it for the rest of the session, which
+  is why it looked intermittent and only happened right after launching the app.
+  "Clear all" now starts hidden, matching what's on screen, so arrow keys skip
+  it until a modifier reveals it (`Footer.swift`).
+
 ## [2.8.2] — 2026-06-22
 
 ### Fixed

@@ -8,13 +8,14 @@ reverted on an upstream rebase.
 
 ### Fixed
 
-- **Fixed a whole-app freeze when the list scrolls during an Option+V cycle.**
-  Holding Option and tapping V to move down a history list long enough to
-  scroll — with the cursor resting over the list — could peg the CPU and lock
-  up the entire popup, forcing a quit from Activity Monitor. Hover selection
-  now updates outside SwiftUI's layout pass, so rows scrolling under a
-  stationary cursor no longer trigger a runaway layout loop
-  (`HoverSelectionModifier.swift`).
+- **Likely fixed a whole-app freeze when the list scrolls during an Option+V
+  cycle.** Holding Option and tapping V to move down a history list long enough
+  to scroll — with the cursor resting over the list — could peg the CPU and
+  lock up the entire popup, forcing a quit from Activity Monitor. The probable
+  cause was hover selection mutating state inside SwiftUI's layout pass; it now
+  updates outside that pass, so rows scrolling under a stationary cursor should
+  no longer trigger a runaway layout loop. The freeze is intermittent and hard
+  to reproduce, so this fix is unconfirmed (`HoverSelectionModifier.swift`).
 
 - **Option+V cycling no longer falls into the footer.** Holding Option and
   tapping V to move down the history list used to descend past the last item

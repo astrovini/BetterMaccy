@@ -254,19 +254,23 @@ class NavigationManager { // swiftlint:disable:this type_body_length
     if let historyItem = history.firstVisibleItem(where: { $0.id == lead }) {
       if let nextItem = history.visibleItem(after: historyItem) {
         selectFromKeyboardNavigation(item: nextItem)
+      } else if allowCycle {
+        // Hotkey cycle (e.g. Option+V held down): wrap back to the top of the
+        // list rather than descending into the footer. The footer holds
+        // destructive actions (clear / clear all / quit) that would fire if the
+        // modifiers were released while a footer item is highlighted.
+        highlightFirst()
       } else if let nextItem = footer.firstVisibleItem {
         selectFromKeyboardNavigation(footerItem: nextItem)
-      } else if allowCycle {
-        highlightFirst()
       }
     } else if let footerItem = footer.firstVisibleItem(where: { $0.id == lead }) {
       if let nextItem = footer.visibleItem(after: footerItem) {
         selectFromKeyboardNavigation(footerItem: nextItem)
+      } else if allowCycle {
+        // End of footer; cycle back to the top of the list.
+        highlightFirst()
       } else if let nextItem = footer.firstVisibleItem {
         selectFromKeyboardNavigation(footerItem: nextItem)
-      } else if allowCycle {
-        // End of footer; cycle to the beginning
-        highlightFirst()
       }
     }
   }

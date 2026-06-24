@@ -4,9 +4,28 @@ Notable changes to BetterMaccy (a fork of [Maccy](https://github.com/p0deje/Macc
 Some fixes here patch pre-existing upstream behavior, so watch for them being
 reverted on an upstream rebase.
 
-## [2.8.3] — 2026-06-22
+## [2.8.3] — 2026-06-24
+
+### Added
+
+- **New setting to turn off Option+V "tap again to move down the list."**
+  By default, holding the popup shortcut's modifier and tapping its key again
+  walks down the history list (and releasing the modifier pastes the
+  highlighted item). The new **"Cycle through items with repeated shortcut
+  presses"** toggle in Settings → General → Behavior lets you switch that off,
+  so the shortcut simply opens and closes the popup instead — navigate with the
+  arrow keys or mouse and confirm with Return. On by default, so existing
+  behavior is unchanged (`Popup.swift`, `GeneralSettingsPane.swift`).
 
 ### Fixed
+
+- **The preview pane now updates its image when you move between two image
+  items in a row.** Selecting one image and then the adjacent image left the
+  preview showing the first picture even though the metadata (app, copy times)
+  switched to the second — the image load only ran once for the preview pane's
+  lifetime and never re-ran when the selection changed. The preview now reloads
+  its image whenever the selected item changes (`AsyncView.swift`,
+  `PreviewItemView.swift`).
 
 - **Arrow-key navigation no longer snags on the hidden "Clear all" footer
   item.** The footer's "Clear" and "Clear all" actions share a single slot;

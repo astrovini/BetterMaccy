@@ -144,17 +144,22 @@ class Popup {
         return nil
       }
 
-      if state == .opening {
-        state = .cycle
-        // Next 'if' will highlight next item and then return nil
+      // When cycle navigation is enabled, every additional press of the main
+      // key (while holding the modifiers) highlights the next item. When it is
+      // disabled, the shortcut simply toggles the popup open/closed.
+      if Defaults[.popupCycleNavigation] {
+        if state == .opening {
+          state = .cycle
+          // Next 'if' will highlight next item and then return nil
+        }
+
+        if state == .cycle {
+          AppState.shared.navigator.highlightNext(allowCycle: true)
+          return nil
+        }
       }
 
-      if state == .cycle {
-        AppState.shared.navigator.highlightNext(allowCycle: true)
-        return nil
-      }
-
-      if state == .toggle && isHotKeyModifiers(event.modifierFlags) {
+      if isHotKeyModifiers(event.modifierFlags) {
         close()
         return nil
       }

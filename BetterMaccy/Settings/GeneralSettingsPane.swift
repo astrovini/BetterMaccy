@@ -102,6 +102,16 @@ struct GeneralSettingsPane: View {
         bottomDivider: true,
         label: { Text("Behavior", tableName: "GeneralSettings") }
       ) {
+        Defaults.Toggle(key: .popupCycleNavigation) {
+          Text("Cycle through items with repeated shortcut presses")
+        }
+        .fixedSize()
+        .help(Text(
+          "When on, pressing the open shortcut's key again while holding its modifier "
+          + "highlights the next item, and releasing the modifier pastes it. "
+          + "When off, the shortcut just opens and closes the popup."
+        ))
+
         Defaults.Toggle(key: .pasteByDefault) {
           Text("PasteAutomatically", tableName: "GeneralSettings")
         }

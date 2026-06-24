@@ -6,7 +6,8 @@ enum AsyncViewState<T> {
   case loaded(T)
 }
 
-struct AsyncView<Value, Content: View, Placeholder: View>: View {
+struct AsyncView<Value, Content: View, Placeholder: View, ID: Equatable>: View {
+  let id: ID
   let operation: () async throws -> Value
   @ViewBuilder var content: (Value) -> Content
   @ViewBuilder var placeholder: () -> Placeholder
@@ -14,10 +15,12 @@ struct AsyncView<Value, Content: View, Placeholder: View>: View {
   @State private var viewState = AsyncViewState<Value>.loading
 
   init(
+    id: ID,
     operation: @escaping () async throws -> Value,
     @ViewBuilder content: @escaping (Value) -> Content,
     @ViewBuilder placeholder: @escaping () -> Placeholder
   ) {
+    self.id = id
     self.operation = operation
     self.content = content
     self.placeholder = placeholder
@@ -31,7 +34,7 @@ struct AsyncView<Value, Content: View, Placeholder: View>: View {
       case .loaded(let value):
         content(value)
       }
-    }.task {
+    }.task(id: id) {
       do {
         viewState = .loading
         let result = try await operation()
